@@ -1,0 +1,33 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile-backend
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=voyage-vista
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile-frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=voyage-vista
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+volumes:
+  postgres-data: {}
+
