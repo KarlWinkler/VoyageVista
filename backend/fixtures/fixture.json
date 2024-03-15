@@ -1,0 +1,32 @@
+[
+  {
+    "model": "location.location",
+    "pk": 1,
+    "fields": {
+      "name": "Calgary",
+      "description": "a city",
+      "created_at": "2024-03-15T03:55:57.729Z",
+      "updated_at": "2024-03-15T03:55:57.730Z"
+    }
+  },
+  {
+    "model": "location.location",
+    "pk": 2,
+    "fields": {
+      "name": "Edmonton",
+      "description": "a bad city",
+      "created_at": "2024-03-15T03:56:37.904Z",
+      "updated_at": "2024-03-15T03:56:37.904Z"
+    }
+  },
+  {
+    "model": "location.location",
+    "pk": 3,
+    "fields": {
+      "name": "Vancouver",
+      "description": "city by the ocean",
+      "created_at": "2024-03-15T03:56:51.711Z",
+      "updated_at": "2024-03-15T03:56:51.711Z"
+    }
+  }
+]
