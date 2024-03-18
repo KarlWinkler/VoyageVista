@@ -1,20 +1,31 @@
 from rest_framework import serializers
-from .models import Location
+from .models import (
+  Location,
+  LocationImage,
+  Rating,
+  Comment,
+  LocationTag,
+)
 
 
 class LocationImageSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Location
+    model = LocationImage
     fields = '__all__'
 
 class RatingSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Location
+    model = Rating
     fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Location
+    model = Comment
+    fields = '__all__'
+
+class LocationTagSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = LocationTag
     fields = '__all__'
 
 class LocationSerializer(serializers.ModelSerializer):

@@ -40,3 +40,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+class LocationTag(models.Model):
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.location.name + ' - ' + self.tag.name
