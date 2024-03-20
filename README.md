@@ -14,14 +14,14 @@ VoyageVista is built using React, Django, and Postgres.
 
 #### Starting the app
 3. run the following commands to start the app:
-
-    `make build`
-
-    `make up`
+    ```
+    make build
+    make up
+    ```
 
 #### Setting up the database
 5. in a new terminal window, run `make migrate`
-6. you can either run `make loaddata` to load the initial data, additionally you can run 
+6. you can either run `make seed` to load the initial data, additionally you can run 
 `make createsuperuser` to create a superuser and then log in to the admin interface to add data manually
 
 #### Viewing the app
@@ -34,4 +34,5 @@ VoyageVista is built using React, Django, and Postgres.
   - follow the naming convention `feat: feature-name` for feature commit messages and `fix: bug-name` for bug commit messages
 ### Backend
   - When making changes to models run `make makemigrations` and `make migrate` to apply changes to the database
+  - To dump the database run `make dump` and to load the database run `make seed`
 
