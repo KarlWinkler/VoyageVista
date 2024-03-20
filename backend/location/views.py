@@ -12,7 +12,6 @@ from .serializers import (
   LocationImageSerializer,
   RatingSerializer,
   CommentSerializer,
-  LocationTagSerializer
 )
 from rest_framework import viewsets
 
@@ -38,8 +37,3 @@ class RatingViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
   queryset = Comment.objects.all()
   serializer_class = CommentSerializer
-
-
-class LocationTagViewSet(viewsets.ModelViewSet):
-  queryset = LocationTag.objects.all()
-  serializer_class = LocationTagSerializer

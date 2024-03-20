@@ -4,8 +4,8 @@ from .models import (
   LocationImage,
   Rating,
   Comment,
-  LocationTag,
 )
+from tag.serializers import TagSerializer
 
 
 class LocationImageSerializer(serializers.ModelSerializer):
@@ -14,6 +14,7 @@ class LocationImageSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 class RatingSerializer(serializers.ModelSerializer):
+  tag = TagSerializer(read_only=True)
   class Meta:
     model = Rating
     fields = '__all__'
@@ -21,11 +22,6 @@ class RatingSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
   class Meta:
     model = Comment
-    fields = '__all__'
-
-class LocationTagSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = LocationTag
     fields = '__all__'
 
 class LocationSerializer(serializers.ModelSerializer):
