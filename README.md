@@ -21,7 +21,8 @@ VoyageVista is built using React, Django, and Postgres.
 
 #### Setting up the database
 5. in a new terminal window, run `make migrate`
-6. you can either run `make loaddata` to load the initial data, or you can run `make createsuperuser` to create a superuser and then log in to the admin interface to add data manually
+6. you can either run `make loaddata` to load the initial data, additionally you can run 
+`make createsuperuser` to create a superuser and then log in to the admin interface to add data manually
 
 #### Viewing the app
 7. Open your browser and navigate to http://localhost:3000
