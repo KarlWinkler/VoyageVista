@@ -28,5 +28,143 @@
       "created_at": "2024-03-15T03:56:51.711Z",
       "updated_at": "2024-03-15T03:56:51.711Z"
     }
+  },
+  {
+    "model": "location.location",
+    "pk": 4,
+    "fields": {
+      "name": "San Fransisco",
+      "description": "A warm tech hub in Cali",
+      "created_at": "2024-03-19T18:45:15.907Z",
+      "updated_at": "2024-03-19T20:35:36.116Z"
+    }
+  },
+  {
+    "model": "location.locationimage",
+    "pk": 1,
+    "fields": {
+      "location": 1,
+      "image": "location_images/Calgary.jpeg",
+      "created_at": "2024-03-19T20:42:44.028Z",
+      "updated_at": "2024-03-19T20:42:44.028Z"
+    }
+  },
+  {
+    "model": "location.rating",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "location": 4,
+      "tag": 1,
+      "rating": 5,
+      "created_at": "2024-03-19T20:41:27.306Z",
+      "updated_at": "2024-03-19T20:41:27.306Z"
+    }
+  },
+  {
+    "model": "location.comment",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "location": 1,
+      "content": "Test Comment",
+      "created_at": "2024-03-19T18:47:55.334Z",
+      "updated_at": "2024-03-19T18:47:55.334Z"
+    }
+  },
+  {
+    "model": "location.comment",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "location": 2,
+      "content": "Hello, World!",
+      "created_at": "2024-03-19T19:12:26.119Z",
+      "updated_at": "2024-03-19T19:12:26.119Z"
+    }
+  },
+  {
+    "model": "location.comment",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "location": 2,
+      "content": "I love the sun here!",
+      "created_at": "2024-03-19T19:12:49.003Z",
+      "updated_at": "2024-03-19T19:12:49.003Z"
+    }
+  },
+  {
+    "model": "tag.tag",
+    "pk": 1,
+    "fields": {
+      "name": "Hot",
+      "created_at": "2024-03-19T20:41:17.625Z",
+      "updated_at": "2024-03-19T20:41:17.625Z"
+    }
+  },
+  {
+    "model": "authentication.bucketlist",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "location": 4,
+      "created_at": "2024-03-20T18:18:11.163Z",
+      "updated_at": "2024-03-20T18:18:11.163Z"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$tBE4kqibIyQ1Szd7gPb2vj$6zgJv4o7gVoAKBKHBlpfr9yraZetc8Y/a3W4dJbmfUU=",
+      "last_login": "2024-03-19T20:26:53Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-03-19T18:42:39Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$UGK3xOCY38o1wtEPn0iU3N$vSImj6I4qECrkwVVXa+ivGUb6ShLo7kowVhg485JAv4=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "user1",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-03-19T20:27:59.568Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$I0wT3xFsoLbzstpxycsXm8$EOWSHWsG7YNk2HeYsLWw6J8u6Gsl+6+5NPLZQ7J2SKA=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "user2",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-03-19T20:28:59.327Z",
+      "groups": [],
+      "user_permissions": []
+    }
   }
 ]

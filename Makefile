@@ -26,4 +26,4 @@ seed:
 	@docker exec -it ${BACKEND_CONTAINER} python manage.py loaddata
 
 dump:
-	@docker exec -it ${BACKEND_CONTAINER} python manage.py dumpdata --exclude auth.permission --exclude contenttypes > fixtures.json
+	@docker exec -it ${BACKEND_CONTAINER} python manage.py dumpdata --exclude auth.permission --exclude contenttypes --exclude admin.logentry --exclude sessions.session > fixtures.json
