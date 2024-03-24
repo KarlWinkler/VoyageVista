@@ -5,7 +5,6 @@ from .models import (
   LocationImage,
   Rating,
   Comment,
-  LocationTag,
 )
 from .serializers import (
   LocationSerializer,

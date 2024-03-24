@@ -3,9 +3,12 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
+from location.models import Location
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers.user_serializer import UserSerializer
+from rest_framework import viewsets
+
 
 # Create your views here.
 def get_user(request, id):
@@ -61,3 +64,24 @@ def get_users(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data, status=200)
+
+@api_view(('GET',))
+def get_header(request):
+    userData = {}
+    locationData = {}
+    location_id = request.query_params.get('location_id', None)
+
+    if request.user.id is not None:
+        user = User.objects.get(id=request.user.id)
+        userData = UserSerializer(user, many=False).data
+
+    if location_id is not None:
+        location = Location.objects.get(id=location_id)
+        locationData = {"name": location.name}
+
+    print(f"user: {request.user.id}")
+
+    return Response({
+        'user': userData,
+        'location': locationData
+    }, status=200)
