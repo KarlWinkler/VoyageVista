@@ -12,6 +12,7 @@ import Location from "./Pages/Location";
 
 import './styles/app.scss'
 import './styles/base.scss'
+import './styles/variables.scss'
 
 function App() {
 
