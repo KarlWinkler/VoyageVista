@@ -31,11 +31,16 @@ function App() {
   return (
     <div className="app">
       <Router>
-      <Header />
+        <Routes>
+          <Route path="/location/:id" element={<Header />} />
+          <Route path="/location/" element={<Header />} />
+          <Route path="/" element={<Header />} />
+        </Routes>
         <div className="content">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/location/:id" element={<Location />} />
             <Route path="/location" element={<Location />} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </div>
       </Router>
