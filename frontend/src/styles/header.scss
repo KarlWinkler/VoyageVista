@@ -1,0 +1,16 @@
+.Header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  justify-items: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--background-color);
+
+}
+
+.logo {
+  justify-self: start;
+  width: 80px;
+  margin-left: -1rem;
+}

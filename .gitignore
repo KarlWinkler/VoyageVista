@@ -15,7 +15,7 @@ media/
 static/
 
 # React
-/node_modules/
+**/node_modules/
 /build/
 .DS_Store
 .env

@@ -1,7 +1,13 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
 .app {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-
-
 }
