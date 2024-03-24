@@ -12,15 +12,18 @@ const Header = () => {
 
   const locationSearchParam = location.pathname.includes('location') ? `location_id=${id}` : ''
 
-  const { data, isLoading } = useQuery('header', async () => {
-    return fetch(`/auth/header?${locationSearchParam}`).then(res =>
-      res.json()
-    )
-  })
+  const { data, isLoading } = useQuery({
+    queryKey: 'header',
+    queryFn: async () => {
+      return fetch(`/auth/header?${locationSearchParam}`).then(res =>
+        res.json()
+      )
+    },
+    staleTime: 5 * 1000 * 60,
+  });
 
   const title = () =>  {
     if ((location.pathname).includes('location')) {
-      console.log(data)
       return data?.location.name || 'Explore'
     } else {
       return 'Home'
@@ -30,7 +33,12 @@ const Header = () => {
   return (
     <div className='Header'>
       <img src={logo} alt='logo' className='logo' />
-      <h2>{title()}</h2>
+      {
+        isLoading ?
+          <h1></h1>
+        :
+          <h1>{title()}</h1>
+      }
       <Hamburger />
     </div>
   )
