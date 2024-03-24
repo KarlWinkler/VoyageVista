@@ -1,6 +1,14 @@
-import Home from "./Pages/Home";
+import{
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
+
 import Header from "./Base/Header";
 import Footer from "./Base/Footer";
+
+import Home from "./Pages/Home";
+import Location from "./Pages/Location";
 
 import './styles/app.scss'
 import './styles/base.scss'
@@ -21,11 +29,18 @@ function App() {
   // }
 
   return (
-      <div className="app">
-        <Header />
-        <Home />
-        <Footer />
-      </div>
+    <div className="app">
+      <Router>
+      <Header />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/location" element={<Location />} />
+          </Routes>
+        </div>
+      </Router>
+      <Footer />
+    </div>
   );
 }
 
