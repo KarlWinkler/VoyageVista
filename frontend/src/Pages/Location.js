@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 
 import Button from '../Components/Button';
 import Card from '../Components/Card';
+import Box from '../Components/Box';
 
 import noImage from '../Assets/no-image.jpg';
 import '../styles/location.scss';
@@ -15,7 +16,7 @@ const Location = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['location'],
     queryFn: async () => {
-      return fetch(`/location/${id}/`).then(res =>
+      return fetch(`/api/location/${id}/`).then(res =>
         res.json()
       );
     },
@@ -38,20 +39,44 @@ const Location = () => {
     }
   }
 
+  const Comments = () => {
+    if (data.comments.length > 0) {
+      return data.comments.map((comment, index) => {
+        return (
+          <Box key={index} className='comment'>
+            <p>{comment.user}</p>
+            <p>{comment.content}</p>
+          </Box>
+        );
+      });
+    } else {
+      return (
+        <p>Be the first to comment!</p>
+      );
+    }
+  }
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
   return (
-    <div className='location'>
-      <div className='location-images'>
-        <Images />
+    <Box className='location'>
+      <div className='location-details'>
+        <div className='location-images'>
+          <Images />
+        </div>
+        <div className='location-description'>
+          <p>{data.description}</p>
+        </div>
+        <Card className='location-tags'>
+          <Tag name={'first'} />
+        </Card>
       </div>
-      <p>{data.description}</p>
-      <Card>
-        <Tag name={'first'} />
-      </Card>
-      <Button tertiary text='Comment' to='/' />
-    </div>
+      <Box>
+        <Button tertiary text='Comment' />
+        <Comments />
+      </Box>
+    </Box>
   );
 };
 

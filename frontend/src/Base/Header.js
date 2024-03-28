@@ -15,7 +15,7 @@ const Header = () => {
   const { data, isLoading } = useQuery({
     queryKey: 'header',
     queryFn: async () => {
-      return fetch(`/auth/header?${locationSearchParam}`).then(res =>
+      return fetch(`/api/auth/header?${locationSearchParam}`).then(res =>
         res.json()
       )
     },
