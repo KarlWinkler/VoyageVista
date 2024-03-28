@@ -1,6 +1,7 @@
 version: '3'
 services:
   backend:
+    container_name: voyage-vista-backend
     build:
       context: ./backend
       dockerfile: dockerfile-backend
@@ -15,6 +16,7 @@ services:
     volumes:
       - ./backend:/app
   frontend:
+    container_name: voyage-vista-frontend
     build:
       context: ./frontend
       dockerfile: dockerfile-frontend
@@ -26,6 +28,7 @@ services:
       - /app/node_modules
       - ./frontend:/app
   db:
+    container_name: voyage-vista-db
     image: postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
