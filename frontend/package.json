@@ -1,7 +1,7 @@
 {
   "name": "voyage-vista",
   "version": "0.1.0",
-  "proxy": "http://seng513-202401-group-14-backend-1:8000/api",
+  "proxy": "http://voyage-vista-backend:8000/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
