@@ -8,12 +8,24 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers.user_serializer import UserSerializer
 from rest_framework import viewsets
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
 # Create your views here.
 def get_user(request, id):
     pass
 
+@swagger_auto_schema(
+    method='post',
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'username': openapi.Schema(type=openapi.TYPE_STRING),
+            'password': openapi.Schema(type=openapi.TYPE_STRING),
+        }
+    ),
+)
 @api_view(('POST',))
 def login(request):
     username = request.data['username']
