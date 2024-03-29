@@ -1,11 +1,10 @@
 .location {
   .button {
-    width: 100%;
+    // width: 100%;
     box-sizing: border-box;
   }
 
   .card {
-    width: 100%;
     box-sizing: border-box;
   }
 }
@@ -34,6 +33,8 @@
 
 .location-tags {
   grid-area: tags;
+
+  margin: var(--spacing-2);
 }
 
 .location-description {

@@ -11,3 +11,15 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
+
+textarea {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+}
+
+.form-inputs {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}

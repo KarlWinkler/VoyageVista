@@ -3,6 +3,8 @@ import{
   Route,
   Routes
 } from "react-router-dom";
+import { useQuery } from 'react-query';
+
 
 import Header from "./Base/Header";
 import Footer from "./Base/Footer";
@@ -15,6 +17,16 @@ import './styles/base.scss'
 import './styles/variables.scss'
 
 function App() {
+  const { data: user, isLoading: userLoading } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+    return fetch(`/api/auth/user`).then(res =>
+        res.json()
+    );
+    },
+    staleTime: 10 * 1000 * 60,
+    cacheTime: 10 * 1000 * 60
+  });
 
   // let clearSelects = (e) => {
   //   // closes all dropdowns when clicking outside of them
@@ -39,9 +51,9 @@ function App() {
         </Routes>
         <div className="content">
           <Routes>
-            <Route path="/location/:id" element={<Location />} />
-            <Route path="/location" element={<Location />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/location/:id" element={<Location user={user}/>} />
+            <Route path="/location" element={<Location user={user}/>} />
+            <Route path="/" element={<Home user={user}/>} />
           </Routes>
         </div>
       </Router>

@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
-import Button from '../Components/Button';
 import Card from '../Components/Card';
 import Box from '../Components/Box';
+import Comment from '../Components/Comment'
 
 import noImage from '../Assets/no-image.jpg';
 import '../styles/location.scss';
 import Tag from '../Components/Tag';
 
-const Location = () => {
+const Location = ({ user }) => {
   const { id } = useParams();
-
   const { data, isLoading } = useQuery({
     queryKey: ['location'],
     queryFn: async () => {
@@ -23,7 +22,7 @@ const Location = () => {
     staleTime: 5 * 1000 * 60,
   });
 
-  console.log(data);
+  console.log("location", data);
 
   const Images = () => {
     if (data.images.length > 0) {
@@ -35,23 +34,6 @@ const Location = () => {
     } else {
       return (
         <img src={noImage} alt='placeholder' />
-      );
-    }
-  }
-
-  const Comments = () => {
-    if (data.comments.length > 0) {
-      return data.comments.map((comment, index) => {
-        return (
-          <Box key={index} className='comment'>
-            <p>{comment.user}</p>
-            <p>{comment.content}</p>
-          </Box>
-        );
-      });
-    } else {
-      return (
-        <p>Be the first to comment!</p>
       );
     }
   }
@@ -72,10 +54,7 @@ const Location = () => {
           <Tag name={'first'} />
         </Card>
       </div>
-      <Box>
-        <Button tertiary text='Comment' />
-        <Comments />
-      </Box>
+      <Comment location_id={data.id} user={user} />
     </Box>
   );
 };
