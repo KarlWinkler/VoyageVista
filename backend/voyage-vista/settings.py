@@ -31,7 +31,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -143,9 +142,20 @@ REST_FRAMEWORK = {
     ),
 }
 
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Basic': {
+            'type': 'basic'
+      }
+   }
+}
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://voyage-vista-frontend:3000',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://voyage-vista-backend:8000/",
 ]

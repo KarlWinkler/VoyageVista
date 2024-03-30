@@ -41,6 +41,9 @@ class Comment(models.Model):
     def __str__(self):
         return self.content
 
+    class Meta:
+        ordering = ['-created_at']
+
 class LocationTag(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='tags')
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='locations')

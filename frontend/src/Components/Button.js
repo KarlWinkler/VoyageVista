@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 
 import '../styles/button.scss';
 
-const Button = ({ text, to, secondary, tertiary }) => {
+const Button = ({ text, to, onClick, className, secondary, tertiary, minor }) => {
   return (
-    <Link className ={`button ${secondary ? 'secondary' : ''} ${tertiary ? 'tertiary' : ''}`} to={to}>
-      {text}
+    <Link
+      className={`button ${secondary ? 'secondary' : ''} ${tertiary ? 'tertiary' : ''} ${minor ? 'minor' : ''} ${className || ''}`}
+      to={to}
+      onClick={onClick}
+    >
+      <p>{text}</p>
     </Link>
   );
 };

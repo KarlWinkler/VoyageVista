@@ -6,6 +6,7 @@ from .models import (
   Comment,
 )
 from tag.serializers import TagSerializer
+from authentication.serializers.user_serializer import UserSerializer
 
 
 class LocationImageSerializer(serializers.ModelSerializer):
@@ -20,6 +21,12 @@ class RatingSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
+  user = UserSerializer(read_only=True)
+  class Meta:
+    model = Comment
+    fields = '__all__'
+
+class CommentCreateSerializer(serializers.ModelSerializer):
   class Meta:
     model = Comment
     fields = '__all__'
