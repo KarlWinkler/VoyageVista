@@ -36,6 +36,11 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgres-data:/var/lib/postgresql/data
+  redis:
+    container_name: voyage-vista-redis
+    image: redis
+    ports:
+      - 6379:6379
 volumes:
   postgres-data: {}
 

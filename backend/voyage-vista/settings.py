@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'location',
     'tag',
     'authentication',
@@ -148,6 +149,17 @@ SWAGGER_SETTINGS = {
             'type': 'basic'
       }
    }
+}
+
+ASGI_APPLICATION = "voyage-vista.routing.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("voyage-vista-redis", 6379)],
+        },
+    },
 }
 
 CORS_ALLOWED_ORIGINS = [
