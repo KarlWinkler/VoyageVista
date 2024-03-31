@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import BucketList
+from authentication.models import BucketList
 
 class BucketListSerializer(serializers.ModelSerializer):
   class Meta:
