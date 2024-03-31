@@ -106,7 +106,7 @@ class AuthViewSet(viewsets.ViewSet):
         return Response(serializer.data, status=201)
 
     @action(detail=False, methods=['get'])
-    def get_current_user(self, request):
+    def user(self, request):
         if request.user.id is None:
             return Response({'message': 'not logged in'}, status=401)
         else:
@@ -114,7 +114,7 @@ class AuthViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=200)
 
     @action(detail=False, methods=['get'])
-    def get_header(self, request):
+    def header(self, request):
         userData = {}
         locationData = {}
         location_id = request.query_params.get('location_id', None)
