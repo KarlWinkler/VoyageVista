@@ -28,32 +28,24 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     ordering = ['username']
 
-    @action(detail=True, methods=['get'])
+    @action(detail=False, methods=['get'])
     def tags(self, request, *args, **kwargs):
         tags = UserTag.objects.filter(user=request.user)
         serializer = UserTagSerializer(tags, many=True)
 
         return Response(serializer.data, status=200)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=False, methods=['get'])
     def visited(self, request, *args, **kwargs):
-        location_id = request.data['location_id']
-        location = get_object_or_404(Location, id=location_id)
-        user = request.user
-
-        visited = Visited.objects.create(user=user)
-        serializer = UserTagSerializer(tag, many=False)
+        visited = Visited.objects.filter(user=request.user)
+        serializer = VisitedSerializer(visited, many=True)
 
         return Response(serializer.data, status=201)
 
-    @action(detail=True, methods=['post'])
+    @action(detail=False, methods=['get'])
     def bucket_list(self, request, *args, **kwargs):
-        location_id = request.data['location_id']
-        location = get_object_or_404(Location, id=location_id)
-        user = request.user
-
-        bucket_list = BucketList.objects.create(user=user)
-        serializer = UserTagSerializer(tag, many=False)
+        bucket_list = BucketList.objects.filter(user=request.user)
+        serializer = BucketListSerializer(bucket_list, many=True)
 
         return Response(serializer.data, status=201)
 
