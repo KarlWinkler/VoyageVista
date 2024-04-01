@@ -13,7 +13,7 @@ class Location(models.Model):
 
 class LocationImage(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='location_images/')
+    image = models.ImageField(upload_to='media/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

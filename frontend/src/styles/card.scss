@@ -1,8 +1,18 @@
 .card {
   display: flex;
+  justify-content: center;
+  align-items: center;
 
   background-color: var(--primary-color);
   padding: var(--spacing-2);
   border-radius: 10px;
   color: var(--background-color);
+
+  gap: var(--spacing-2);
+
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--spacing-1);
+  }
 }
