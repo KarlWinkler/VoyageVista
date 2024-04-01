@@ -4,7 +4,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.models import User
 from location.models import Location
-from .models import UserTag, Visited, BucketList
+from .models import UserTag, Visited, BucketList, UserImage
 from .serializers.user_tag_serializer import UserTagSerializer
 from .serializers.visited_serializer import VisitedSerializer
 from .serializers.bucket_list_serializer import BucketListSerializer
@@ -103,6 +103,8 @@ class AuthViewSet(viewsets.ViewSet):
             return Response({'message': 'not logged in'}, status=401)
         else:
             serializer = UserSerializer(request.user, many=False)
+            print(serializer.data)
+            print(UserImage.objects.filter(user=request.user).first())
             return Response(serializer.data, status=200)
 
     @action(detail=False, methods=['get'])

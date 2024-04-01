@@ -40,9 +40,11 @@ const Profile = ({ user }) => {
     cacheTime: 10 * 1000 * 60
   });
 
+  console.log(user)
   return (
     <div className='profile'>
       <div className="profile-name">
+        <img className='profile-image' src={user?.images[0].image} alt={user?.username} />
         {user?.username}
       </div>
       <Card className="profile-tags">

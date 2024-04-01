@@ -4,11 +4,14 @@
   grid-gap: 20px;
   padding: var(--spacing-3);
 
+  .profile-image {
+    width: 50%;
+    height: auto;
+  }
+
   .profile-name {
     font-size: 1.5rem;
     font-weight: bold;
-
-    height: 250px;
   }
 
   .profile-tags{
@@ -31,5 +34,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    grid-template-columns: 1fr;
   }
 }

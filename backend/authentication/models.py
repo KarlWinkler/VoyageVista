@@ -38,4 +38,4 @@ class UserImage(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.username + ' - ' + self.image.url
