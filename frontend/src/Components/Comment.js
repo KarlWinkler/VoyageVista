@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useMutation, useQueryClient, useQuery } from 'react-query';
 
 import Box from '../Components/Box';
 import Button from  '../Components/Button';
+import WebsocketComment from '../Components/WebsocketComment';
 
 import getCookie from '../Components/GetCookie';
 import '../styles/comment.scss';
 
-const NewComment = ({ user, location_id, newComment, setNewComment, content, setContent, postComment }) => {
+const NewComment = ({ user, location_id, newComment, setNewComment, content, setContent, postComment, sendMessage }) => {
     if (newComment) {
         return (
         <form onSubmit={(e) => { 
             console.log('clicked')
-            handleCreateComment(e, user, location_id, content, postComment) 
+            handleCreateComment(e, user, location_id, content, postComment)
+            sendMessage(user, content, location_id)
         }} >
             <p>{user.name}</p>
             <textarea placeholder='New Comment' value={content} onChange={(e) => setContent(e.target.value)} />
@@ -25,7 +27,10 @@ const NewComment = ({ user, location_id, newComment, setNewComment, content, set
     } else if (user?.username){
         return (
         <>
-            <Button className='comment-add-button' text='Add Comment' tertiary onClick={(event) => { handleNewComment(event, newComment, setNewComment) }} />
+            <Button className='comment-add-button' text='Add Comment' tertiary
+                onClick={(event) => {
+                    handleNewComment(event, newComment, setNewComment)
+                }} />
         </>
         );
     } else {
@@ -69,6 +74,8 @@ const handleCreateComment = (event, user, location_id, content, postComment) => 
 function Comment({ user, location_id }) {
     const [newComment, setNewComment] = useState(false);
     const [content, setContent] = useState('');
+    const [data, setData] = useState('')
+
     const queryClient = useQueryClient();
     const { data: comments , isLoading } = useQuery({
       queryKey: ['comments'],
@@ -99,13 +106,51 @@ function Comment({ user, location_id }) {
             queryClient.invalidateQueries('comments');
         }
     })
+    const websocket = useRef()
+    useEffect(() => {
+      let update = (data) => {
+        setData(data)
+      }
+
+      websocket.current = websocket.current || new WebSocket(`ws://localhost:8000/ws/location/${location_id}/`)
+      console.log(websocket.current)
+      websocket.current.onopen = e => {
+        console.log('open', e)
+      }
+      websocket.current.onmessage = e => {
+        update(JSON.parse(e.data))
+      }
+  
+      websocket.current.onerror = e => {
+        console.log('error', e)
+      }
+    }, [])
+  
+    let sendMessage = (user, comment, location_id) => {
+      console.log('send message')
+      websocket.current.send(JSON.stringify({
+        comment: comment,
+        user: user,
+        location_id: location_id,
+      }))
+    } 
 
     if (isLoading) {
         return <h1>Loading...</h1>;
     }
     return (
         <>
-            <NewComment user={user} location_id={location_id} newComment={newComment} setNewComment={setNewComment} content={content} setContent={setContent} postComment={postComment} />
+            <WebsocketComment data={data} />
+            <NewComment
+                user={user}
+                location_id={location_id}
+                newComment={newComment}
+                setNewComment={setNewComment}
+                content={content}
+                setContent={setContent}
+                postComment={postComment}
+                sendMessage={sendMessage}
+            />
             <Comments comments={comments} />
         </>
     )
