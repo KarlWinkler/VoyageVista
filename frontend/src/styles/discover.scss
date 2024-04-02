@@ -1,0 +1,39 @@
+.discover {
+  display: flex;
+  flex-direction: column;
+}
+
+.discover-options {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--spacing-2);
+
+  h1 {
+    margin: 0;
+    height: fit-content;
+  }
+}
+
+.discover-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.discover-icon {
+  width: var(--spacing-4)
+}
+
+.image-carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.discover-image {
+  width: 500px;
+  height: auto;
+}

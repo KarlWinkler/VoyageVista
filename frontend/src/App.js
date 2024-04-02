@@ -12,6 +12,7 @@ import Footer from "./Base/Footer";
 import Home from "./Pages/Home";
 import Location from "./Pages/Location";
 import Profile from "./Pages/Profile";
+import Discover from "./Pages/Discover";
 
 import './styles/app.scss'
 import './styles/base.scss'
@@ -46,6 +47,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
+          <Route path="/discover" element={<Header />} />
           <Route path="/profile" element={<Header />} />
           <Route path="/location/:id" element={<Header />} />
           <Route path="/location/" element={<Header />} />
@@ -53,6 +55,7 @@ function App() {
         </Routes>
         <div className="content">
           <Routes>
+            <Route path="/discover" element={<Discover user={user}/>} />
             <Route path="/profile" element={<Profile user={user}/>} />
             <Route path="/location/:id" element={<Location user={user}/>} />
             <Route path="/location" element={<Location user={user}/>} />
