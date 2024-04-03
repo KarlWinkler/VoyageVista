@@ -62,7 +62,7 @@ const Profile = ({ user }) => {
           {visited?.map(({ location }, index) => {
             console.log(location.images[0].image);
             return (
-              <LocationCard key={`visited_${index}`} name={location.name} image={location.images[0].image} alt={location.images[0].alt} tags={location.tags} />
+              <LocationCard key={`visited_${index}`} location={location} />
             );
           })}
         </div>
@@ -73,7 +73,7 @@ const Profile = ({ user }) => {
         <div className='profile-locations-list'>
           {bucketList?.map(({ location }, index) => {
             return (
-              <LocationCard key={`bucket_${index}`} name={location.name} image={location.images[0].image} alt={location.images[0].alt} tags={location.tags} />
+              <LocationCard key={`bucket_${index}`} location={location} />
             );
           })}
         </div>

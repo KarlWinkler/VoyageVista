@@ -3,12 +3,14 @@ import React from 'react';
 import Card from './Card';
 import Tag from './Tag';
 
-const LocationCard = ({ index, name, image, alt, tags }) => {
+const LocationCard = ({ index, location }) => {
+  let img = location?.images[0]?.image.replace('voyage-vista-backend', 'localhost')
+
   return (
     <Card key={index} className='location-card'>
-      <img src={`http://localhost:8000${image}/`} alt={alt} />
-      {name}
-      {tags?.map((tag, index) => {
+      <img src={img} alt={location?.images[0]?.alt} />
+      {location?.name}
+      {location?.tags?.map((tag, index) => {
         return (
           <Tag key={index} name={tag.tag.name} />
         );
