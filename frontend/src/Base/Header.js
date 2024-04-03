@@ -1,5 +1,6 @@
 import React from 'react'
 import Hamburger from '../Components/Hamburger'
+import ExpandedMenu from '../Components/ExpandedMenu'
 import { useLocation, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
@@ -39,6 +40,7 @@ const Header = ({ name }) => {
         :
           <h1>{title()}</h1>
       }
+      <ExpandedMenu />
       <Hamburger />
     </div>
   )
