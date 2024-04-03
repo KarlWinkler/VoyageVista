@@ -12,7 +12,7 @@ const Login = () => {
 		let usernameValue = username.value;
 		let passwordValue = password.value;
 		
-		const { data, status } = useQuery({
+		/*const { data, status } = useQuery({
 			queryKey: [usernameValue],
 			queryFn: async () => {
 				return fetch(`/api/user/password/`).then(res => res.json()
@@ -22,7 +22,7 @@ const Login = () => {
 		
 		if(data == passwordValue) {
 			//login
-		}
+		}*/
 	}
 	
 	const onShowClick = () => {
