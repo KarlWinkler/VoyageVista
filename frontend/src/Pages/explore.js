@@ -1,6 +1,8 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import '../styles/explore.scss';
+import logo from '../Assets/logo.png'
+
 
 // Tag Component
 const Tag = ({ name }) => {
