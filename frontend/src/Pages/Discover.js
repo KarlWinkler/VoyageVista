@@ -48,7 +48,7 @@ const Discover = () => {
   const { data: locations, isLoading } = useQuery({
     queryKey: ['location'],
     queryFn: async () => {
-      return fetch(`/api/locations/discover/`).then(res =>
+      return fetch(`/api/location/discover/`).then(res =>
         res.json()
       );
     },

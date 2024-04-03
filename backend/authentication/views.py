@@ -103,8 +103,6 @@ class AuthViewSet(viewsets.ViewSet):
             return Response({'message': 'not logged in'}, status=401)
         else:
             serializer = UserSerializer(request.user, many=False)
-            print(serializer.data)
-            print(UserImage.objects.filter(user=request.user).first())
             return Response(serializer.data, status=200)
 
     @action(detail=False, methods=['get'])
@@ -120,8 +118,6 @@ class AuthViewSet(viewsets.ViewSet):
         if location_id is not None:
             location = Location.objects.get(id=location_id)
             locationData = {"name": location.name}
-
-        print(f"user: {request.user.id}")
 
         return Response({
             'user': userData,
