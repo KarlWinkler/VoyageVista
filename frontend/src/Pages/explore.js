@@ -12,24 +12,25 @@ const Tag = ({ name }) => {
 // Location Card Component
 const LocationCard = ({ location }) => {
   return (
-    <div className="location-card" onClick={() => {/* Navigate to location's page */}}>
-      <img src={location.image} alt={location.name} className="location-image" />
-      <div className="location-info">
-        <h2>{location.name}</h2>
-        <div className="tags">
-          {location.tags.map((tag, index) => (
-            <Tag key={index} name={tag} />
-          ))}
+    <div className="location-card">
+      <a href={`/locations/${location.name}`} className="location-link">
+        <img src={location.image} alt={location.name} className="location-image" />
+        <div className="location-info">
+          <h2>{location.name}</h2>
+          <div className="tags">
+            {location.tags.map((tag, index) => (
+              <span key={index} className="tag">{tag}</span>
+            ))}
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };
-
 // Explore Component
 const Explore = () => {
   const { data: locations, isLoading } = useQuery('locations', async () => {
-    const response = await fetch('/api/locations');
+    const response = await fetch('/api/location');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
