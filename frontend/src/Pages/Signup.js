@@ -30,7 +30,7 @@ const Signup = () => {
     return (
         <div class="container">
 			<div class="heading">
-				<img src="logo.png" alt="App Logo"/>
+				<img src={logo} alt="App Logo"/>
 				<h1>Sign Up</h1>
 				<div class="altPage">Login</div>
 			</div>
@@ -46,7 +46,7 @@ const Signup = () => {
 						<input type="password" id="pass" placeholder="Password"/>
 						<button onclick={onShowClick} type="button" class="showPassword" id="show">Show</button>
 					</div>
-					<button type="submit" id="signUp">Sign Up</button>
+					<input id="signUp" className='button secondary' type='submit' value='Sign Up' />
 				</form>
 			</section>
 		</div>

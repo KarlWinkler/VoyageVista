@@ -14,10 +14,12 @@ import Location from "./Pages/Location";
 import Profile from "./Pages/Profile";
 import Discover from "./Pages/Discover";
 import Explore from "./Pages/Explore";
+import Login from "./Pages/Login";
 
 import './styles/app.scss'
 import './styles/base.scss'
 import './styles/variables.scss'
+import Signup from "./Pages/Signup";
 
 function App() {
   const { data: user, isLoading: userLoading } = useQuery({
@@ -57,6 +59,8 @@ function App() {
         </Routes>
         <div className="content">
           <Routes>
+            <Route path="/login" element={<Login user={user}/>} />
+            <Route path="/signup" element={<Signup user={user}/>} />
             <Route path="/explore" element={<Explore user={user}/>} />
             <Route path="/discover" element={<Discover user={user}/>} />
             <Route path="/profile" element={<Profile user={user}/>} />

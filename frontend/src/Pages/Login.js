@@ -39,7 +39,7 @@ const Login = () => {
     return (
         <div class="container">
 			<div class="heading">
-				<img src="logo.png" alt="App Logo"/>
+				<img src={logo} alt="App Logo"/>
 				<h1>Log In</h1>
 				<div class="altPage">Sign Up</div>
 			</div>
@@ -52,7 +52,7 @@ const Login = () => {
 						<input type="password" id="pass" placeholder="Password"/>
 						<button onclick={onShowClick} type="button" class="showPassword" id="show">Show</button>
 					</div>
-					<button type="submit" id="logIn">Log In</button>
+					<input id="logIn" className='button secondary' type='submit' value='Log In' />
 				</form>
 			</section>
 			<footer>
