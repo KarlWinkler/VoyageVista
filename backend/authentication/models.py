@@ -30,3 +30,12 @@ class UserTag(models.Model):
 
     def __str__(self):
         return self.user.username + ' - ' + self.tag.name
+
+class UserImage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='user_images/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username + ' - ' + self.image.url

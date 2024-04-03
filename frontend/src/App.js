@@ -11,6 +11,8 @@ import Footer from "./Base/Footer";
 
 import Home from "./Pages/Home";
 import Location from "./Pages/Location";
+import Profile from "./Pages/Profile";
+import Discover from "./Pages/Discover";
 
 import './styles/app.scss'
 import './styles/base.scss'
@@ -20,7 +22,7 @@ function App() {
   const { data: user, isLoading: userLoading } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-    return fetch(`/api/auth/user`).then(res =>
+    return fetch(`/api/auth/user/`).then(res =>
         res.json()
     );
     },
@@ -45,12 +47,16 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
+          <Route path="/discover" element={<Header />} />
+          <Route path="/profile" element={<Header />} />
           <Route path="/location/:id" element={<Header />} />
           <Route path="/location/" element={<Header />} />
           <Route path="/" element={<Header />} />
         </Routes>
         <div className="content">
           <Routes>
+            <Route path="/discover" element={<Discover user={user}/>} />
+            <Route path="/profile" element={<Profile user={user}/>} />
             <Route path="/location/:id" element={<Location user={user}/>} />
             <Route path="/location" element={<Location user={user}/>} />
             <Route path="/" element={<Home user={user}/>} />

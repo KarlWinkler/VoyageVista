@@ -1,0 +1,44 @@
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding: var(--spacing-3);
+
+  .profile-image {
+    width: 50%;
+    height: auto;
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .profile-tags{
+    box-sizing: border-box;
+
+    margin: var(--spacing-2);
+  }
+
+  .profile-locations {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+
+    grid-column: 1 / -1;
+  }
+
+  .profile-locations-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    grid-template-columns: 1fr;
+  }
+}

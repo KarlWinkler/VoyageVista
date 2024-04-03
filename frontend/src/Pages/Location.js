@@ -27,8 +27,9 @@ const Location = ({ user }) => {
   const Images = () => {
     if (data.images.length > 0) {
       return data.images.map((image, index) => {
+        let img = image.image.replace('voyage-vista-backend', 'localhost')
         return (
-          <img key={index} src={image.image} alt={image.alt} />
+          <img key={index} src={img} alt={image.alt} />
         );
       });
     } else {

@@ -41,6 +41,11 @@
   grid-area: description;
 }
 
+.location-card {
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (max-width: 768px) {
   .location-details {
     grid-template-areas: 
