@@ -58,14 +58,13 @@
   }
 }
 
-// Assuming you have a navigation component, here's a basic styling:
+// Navigation Styles
 .navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
 
-  // Icon styles might be defined elsewhere if you're using SVGs or a font icon library
   .icon {
     color: #001B2D; // Accent color for icons
     font-size: 1.5rem;
