@@ -50,7 +50,7 @@ const Profile = ({ user }) => {
       <Card className="profile-tags">
         {tags?.map((tag, index) => {
           return (
-            <Tag key={index} name={tag.name} />
+            <Tag key={index} name={tag.tag.name} />
           );
         })}
         <AddButton />

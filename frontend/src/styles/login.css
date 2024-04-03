@@ -1,0 +1,94 @@
+.container {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 0.8%;
+    font-family: Arial, Helvetica, sans-serif;
+} 
+
+.altPage {
+    margin-left: 20rem;
+    margin-bottom: 1rem;
+    margin-top: -2rem;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.signupSection {
+    gap: 1.5rem;
+}
+
+.inputBox {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 25rem;
+    height: 3.5rem;
+    border-radius: 0.5rem;
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 0.15rem;
+}
+
+input {
+    width: 25rem;
+    height: 3.5rem;
+    background: transparent;
+    border-radius: none;
+    border: none;
+    outline: none;
+    font-size: 19px;
+    margin: 0px 15px;
+}
+
+#logIn {
+    align-self: center;
+    width: 25rem;
+    height: 3.7rem;
+    color: white;
+    border-radius: 3rem;
+    border: none;
+    margin-top: 5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+#signUp {
+    align-self: center;
+    width: 25rem;
+    height: 3.7rem;
+    color: white;
+    border-radius: 3rem;
+    border: none;
+    margin-top: 3rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.forgotPassword {
+    margin-top: 2.6rem;
+    font-size: 1.12rem;
+    cursor: pointer;
+}
+
+.showPassword {
+    margin-right: 1rem;
+    background: none;
+    border: none;
+    font-size: medium;
+    cursor: pointer;
+}
+
+body {
+    height: 100%;
+    background-repeat: no-repeat;
+}

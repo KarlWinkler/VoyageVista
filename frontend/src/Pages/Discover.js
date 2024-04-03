@@ -64,7 +64,7 @@ const Discover = () => {
   // style={{backgroundImage: }}
   return (
     <div className='discover'>
-      <div className='discover-bg'  style={{backgroundImage: `url(http://localhost:8000/${locations[0]?.images[0].image})`}} ></div>
+      <div className='discover-bg'  style={{backgroundImage: `url(http://localhost:8000${locations[0]?.images[0].image})`}} ></div>
         {locations_list?.map((location, index) => {
           return (
             <div key={index}>
