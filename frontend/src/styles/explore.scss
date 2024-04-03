@@ -1,0 +1,73 @@
+// Explore Page Styles
+.explore {
+  background-color: #f5f5f5; // Assuming a light background
+  padding: 20px; // Adjust as needed for spacing
+
+  // Grid layout for location cards
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); // Adjust minmax for card size
+    grid-gap: 20px; // Spacing between cards
+    justify-content: center;
+  }
+
+  // Location Card Styles
+  .location-card {
+    border-radius: 10px; // Rounded corners for the card
+    overflow: hidden; // Ensures the image adheres to the border radius
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // subtle shadow
+    transition: transform 0.2s; // Smooth transition for hover effect
+
+    &:hover {
+      transform: translateY(-5px); // Slight raise effect on hover
+    }
+
+    .location-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .location-info {
+      background-color: #0083BC; // Primary color for the card footer
+      color: white;
+      padding: 10px;
+
+      h2 {
+        margin: 0 0 10px 0;
+        font-size: 1rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px; // Spacing between tags
+      }
+    }
+  }
+
+  // Tag Styles
+  .tag {
+    background-color: #F79301; // Secondary color for tags
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px; // Rounded tags
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+// Assuming you have a navigation component, here's a basic styling:
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+
+  // Icon styles might be defined elsewhere if you're using SVGs or a font icon library
+  .icon {
+    color: #001B2D; // Accent color for icons
+    font-size: 1.5rem;
+  }
+}
