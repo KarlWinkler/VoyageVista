@@ -6,7 +6,7 @@ import { useQuery } from 'react-query'
 import logo from '../Assets/logo.png'
 import '../styles/header.scss'
 
-const Header = () => {
+const Header = ({ name }) => {
   const location = useLocation()
   const { id } = useParams()
 
@@ -26,7 +26,7 @@ const Header = () => {
     if ((location.pathname).includes('location')) {
       return data?.location.name || 'Explore'
     } else {
-      return 'Home'
+      return name || 'Home'
     }
   }
 
