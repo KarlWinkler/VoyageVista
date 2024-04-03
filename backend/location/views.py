@@ -47,9 +47,11 @@ class LocationViewSet(viewsets.ModelViewSet):
     return Response(serializer.data)
 
   def pick_random_locations(self, locations):
+    locations = list(locations)
     random_locations = []
     for i in range(min(10, len(locations))):
       random_locations.append(random.choice(locations))
+      locations.pop(locations.index(random_locations[-1]))
 
     return random_locations
 

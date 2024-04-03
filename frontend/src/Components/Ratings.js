@@ -18,7 +18,9 @@ const Ratings = ({ ratings }) => {
         return (
           <div key={index} className='rating'>
             <h3>{rating?.tag.name}</h3>
-            <Rating rating={rating.rating} />
+            <div>
+              <Rating rating={rating.rating} />
+            </div>
           </div>
         );
       })}

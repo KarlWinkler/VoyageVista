@@ -58,18 +58,22 @@ const Discover = () => {
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
-  console.log(locations)
+  let locations_list = [locations[0]]
+  console.log("locations", locations[0]?.images[0].image.replace('voyage-vista-backend', 'localhost'))
+
+  // style={{backgroundImage: }}
   return (
     <div className='discover'>
-      {locations?.map((location, index) => {
-        return (
-          <div key={index}>
-            <ImageCarousel images={location?.images} />
-            <Options location={location} />
-            <Desctiption location={location} />
-          </div>
-        );
-      })}
+      <div className='discover-bg'  style={{backgroundImage: `url(http://localhost:8000/${locations[0]?.images[0].image})`}} ></div>
+        {locations_list?.map((location, index) => {
+          return (
+            <div key={index}>
+              <ImageCarousel images={location?.images} />
+              <Options location={location} />
+              <Desctiption location={location} />
+            </div>
+          );
+        })}
     </div>
   );
 };
