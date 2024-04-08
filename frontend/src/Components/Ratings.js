@@ -6,12 +6,11 @@ const Ratings = ({ ratings }) => {
   const Rating = ({ rating }) => {
     let stars = [];
     for(let i = 0; i < rating; i++) {
-      stars.push(<span>⭐</span>)
+      stars.push(<span key={`star_${i}`}>⭐</span>)
     }
     return stars;
   }
 
-  console.log(ratings);
   return (
     <div className='ratings'>
       {ratings?.map((rating, index) => {

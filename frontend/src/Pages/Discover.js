@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 import { ReactComponent as AcceptIcon } from '../Assets/accept.svg';
@@ -10,29 +11,41 @@ import Ratings from '../Components/Ratings';
 
 import '../styles/discover.scss';
 
-const ImageCarousel = ({ images }) => {
-  return (
-    <div className='image-carousel'>
-      <LeftIcon className='discover-icon' />
-      {images?.map((image, index) => {
-        let img = image.image.replace('voyage-vista-backend', 'localhost')
-        return (
-          <img className='discover-image' key={index} src={img} alt='Discover' />
-        );
-      })}
-      <RightIcon className='discover-icon' />
-    </div>
-  );
+const progressLocation = (selected, locationIndex, locations, navigate, setLocationIndex, selectedLocations, setSelectedLocations) => {
+  let selectedLocationsTemp = [...selectedLocations];
+
+  if (selected) {
+    selectedLocationsTemp.push(locations[locationIndex].id);
+    setSelectedLocations(selectedLocationsTemp);
+  }
+
+  if (locationIndex + 1 === locations.length) {
+    navigate(`/explore?discover=${[...selectedLocationsTemp].join('%2C')}`);
+  } else {
+    setLocationIndex(locationIndex + 1);
+  }
 }
 
-const Options = ({ location }) => {
-  return (
-    <div className='discover-options'>
-      <RejectIcon className='discover-icon' />
-      <h1>{location?.name}</h1>
-      <AcceptIcon className='discover-icon' />
-    </div>
-  );
+const progressImage = (forward, imageIndex, setImageIndex, images) => {
+  console.log(images);
+  if (!images) {
+    return;
+  }
+
+  if (forward && imageIndex + 1 === images.length) {
+    setImageIndex(0);
+    return;
+  }
+  if (!forward && imageIndex === 0) {
+    setImageIndex(images.length - 1);
+    return;
+  }
+
+  if (forward) {
+    setImageIndex(imageIndex + 1);
+  } else {
+    setImageIndex(imageIndex - 1);
+  }
 }
 
 const Desctiption = ({ location }) => {
@@ -44,7 +57,19 @@ const Desctiption = ({ location }) => {
   );
 }
 
+const Image = ({ image }) => {
+  let img = image.image.replace('voyage-vista-backend', 'localhost')
+  console.log(img);
+  return (
+    <img className='discover-image' src={img} alt='Discover' />
+  );
+}
+
 const Discover = () => {
+  const navigate = useNavigate();
+  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [locationIndex, setLocationIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
   const { data: locations, isLoading } = useQuery({
     queryKey: ['location'],
     queryFn: async () => {
@@ -58,22 +83,27 @@ const Discover = () => {
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
-  let locations_list = [locations[0]]
-  console.log("locations", locations[0]?.images[0].image.replace('voyage-vista-backend', 'localhost'))
+  let location = locations[locationIndex];
 
-  // style={{backgroundImage: }}
   return (
     <div className='discover'>
-      <div className='discover-bg'  style={{backgroundImage: `url(http://localhost:8000${locations[0]?.images[0].image})`}} ></div>
-        {locations_list?.map((location, index) => {
-          return (
-            <div key={index}>
-              <ImageCarousel images={location?.images} />
-              <Options location={location} />
-              <Desctiption location={location} />
-            </div>
-          );
-        })}
+      <div className='discover-bg' style={{backgroundImage: `url(http://localhost:8000${locations[locationIndex]?.images[imageIndex]?.image})`}} ></div>
+      <div className='discover-current-location'>
+        <div>
+          <div className='image-carousel'>
+            <LeftIcon className='discover-icon' onClick={() => progressImage(false, imageIndex, setImageIndex, location?.images)}/>
+            <Image image={location?.images[imageIndex]} />
+            <RightIcon className='discover-icon' onClick={() => progressImage(true, imageIndex, setImageIndex, location?.images)} />
+          </div>
+
+          <div className='discover-options'>
+            <RejectIcon className='discover-icon' onClick={() => progressLocation(false, locationIndex, locations, navigate, setLocationIndex, selectedLocations, setSelectedLocations)}/>
+            <h1>{location?.name}</h1>
+            <AcceptIcon className='discover-icon' onClick={() => progressLocation(true, locationIndex, locations, navigate, setLocationIndex, selectedLocations, setSelectedLocations)} />
+          </div>
+          <Desctiption location={location} />
+        </div>
+      </div>
     </div>
   );
 };
