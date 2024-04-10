@@ -1,65 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
+import { useQuery } from 'react-query'
 import '../styles/login.css'
 import logo from '../Assets/logo.png'
 
 const Login = () => {
-	let showBtn = document.getElementById("show");
-	let password = document.getElementById("pass");
-	let username = document.getElementById("user");
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [errorMessage, setErrorMessage] = useState('');
+	const [showBtn, setShowBtn] = useState(true);
 	
-	const onLoginClick = (event) => {
-		let usernameValue = username.value;
-		let passwordValue = password.value;
-		
-		/*const { data, status } = useQuery({
-			queryKey: [usernameValue],
-			queryFn: async () => {
-				return fetch(`/api/user/password/`).then(res => res.json()
-				);
-			}
+	const onLoginClick = async (event) => {
+		event.preventDefault();
+		const response = await fetch('/api/auth/login/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: username,
+				password: password
+			}),
 		});
-		
-		if(data == passwordValue) {
-			//login
-		}*/
+		if (response.status === 200) {
+      window.location.href = '/'
+    }
+    else if (response.status === 401) {
+      setErrorMessage('username or password is incorrect')
+    }
 	}
 	
-	const onShowClick = () => {
-		if(password.type == "password") {
-			password.type = "text";
-			showBtn.textContent = "Hide";
-		} else {
-			password.type = "password";
-			showBtn.textContent = "Show";
-		}
-	}
-	
-	
-    return (
-        <div class="container">
-			<div class="heading">
+	return (
+		<div className="container">
+			<div className="heading">
 				<img src={logo} alt="App Logo"/>
 				<h1>Log In</h1>
-				<div class="altPage">Sign Up</div>
+				<Link className="altPage">Sign Up</Link>
 			</div>
+			<div className="error">{errorMessage}</div>
 			<section>
 				<form action="" onSubmit={onLoginClick}>
-					<div class="inputBox" id="username">
-						<input type="text" id="user" placeholder="Username"/>
+					<div className="inputBox" id="username">
+						<input type="text" id="user" placeholder="Username" value={username} onChange={(e => setUsername(e.target.value))}/>
 					</div>
-					<div class="inputBox" id="password">
-						<input type="password" id="pass" placeholder="Password"/>
-						<button onclick={onShowClick} type="button" class="showPassword" id="show">Show</button>
+					<div className="inputBox" id="password">
+						<input type={showBtn ? 'password' : 'text'} id="pass" placeholder="Password" value={password} onChange={(e => setPassword(e.target.value))} />
+						<button onClick={() => setShowBtn(!showBtn)} type="button" className="showPassword" id="show">
+							{showBtn ? 'Show' : 'Hide'}
+						</button>
 					</div>
 					<input id="logIn" className='button secondary' type='submit' value='Log In' />
 				</form>
 			</section>
 			<footer>
-				<div class="forgotPassword">Forgot your password?</div>
+				<div className="forgotPassword">Forgot your password?</div>
 			</footer>
-		</div>
-    )
+		</div	>
+	)
 }
 
 export default Login

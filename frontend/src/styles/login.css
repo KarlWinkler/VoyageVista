@@ -6,12 +6,11 @@
     margin: auto;
     margin-top: 0.8%;
     font-family: Arial, Helvetica, sans-serif;
-} 
+}
 
 .altPage {
     margin-left: 20rem;
     margin-bottom: 1rem;
-    margin-top: -2rem;
     cursor: pointer;
 }
 

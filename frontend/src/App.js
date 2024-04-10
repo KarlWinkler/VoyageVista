@@ -50,6 +50,8 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
+          <Route path="/login" element={<Header user={user} name={'Log In'} />} />
+          <Route path="/signup" element={<Header user={user} name={'Sign Up'} />} />
           <Route path="/explore" element={<Header user={user} name={'Explore'} />} />
           <Route path="/discover" element={<Header user={user} name={'Discover'} />} />
           <Route path="/profile" element={<Header user={user} name={'Profile'} />} />
