@@ -29,6 +29,17 @@ class LocationViewSet(viewsets.ModelViewSet):
   queryset = Location.objects.all()
   serializer_class = LocationSerializer
 
+  def list(self, request):
+    locations_list = request.GET.get('locations', None)
+    if locations_list is None:
+      queryset = Location.objects.all()
+    else:
+      locations_list = locations_list.split(',')
+      queryset = Location.objects.filter(pk__in=locations_list)
+
+    serializer = LocationSerializer(queryset, many=True)
+    return Response(serializer.data)
+
   @action(detail=True, methods=['get'], url_path='comments', url_name='location-comments')
   def comments(self, request, pk=None):
     location = get_object_or_404(Location, pk=pk)

@@ -1,7 +1,7 @@
 import React from 'react'
 import Hamburger from '../Components/Hamburger'
 import ExpandedMenu from '../Components/ExpandedMenu'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 import logo from '../Assets/logo.png'
@@ -16,7 +16,7 @@ const Header = ({ name }) => {
   const { data, isLoading } = useQuery({
     queryKey: 'header',
     queryFn: async () => {
-      return fetch(`/api/auth/header?${locationSearchParam}`).then(res =>
+      return fetch(`/api/auth/header/?${locationSearchParam}`).then(res =>
         res.json()
       )
     },
@@ -33,13 +33,13 @@ const Header = ({ name }) => {
 
   return (
     <div className='Header'>
-      <img src={logo} alt='logo' className='logo' />
-      {
-        isLoading ?
-          <h1></h1>
-        :
-          <h1>{title()}</h1>
-      }
+        <img src={logo} alt='logo' className='logo' />
+        {
+          isLoading ?
+            <h1></h1>
+          :
+            <h1>{title()}</h1>
+        }
       <ExpandedMenu />
       <Hamburger />
     </div>

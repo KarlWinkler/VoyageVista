@@ -58,7 +58,7 @@ const Desctiption = ({ location }) => {
 }
 
 const Image = ({ image }) => {
-  let img = image.image.replace('voyage-vista-backend', 'localhost')
+  let img = image?.image.replace('voyage-vista-backend', 'localhost')
   console.log(img);
   return (
     <img className='discover-image' src={img} alt='Discover' />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import '../styles/explore.scss';
 import LocationCard from '../Components/LocationCard';
@@ -11,8 +12,11 @@ const Tag = ({ name }) => {
 
 // Explore Component
 const Explore = () => {
+  const [searchParams] = useSearchParams();
+  const locationIds = searchParams.get('discover');
+
   const { data: locations, isLoading } = useQuery('locations', async () => {
-    const response = await fetch('/api/location');
+    const response = await fetch(`/api/location/${locationIds ? `?locations= ${locationIds}` : ''}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

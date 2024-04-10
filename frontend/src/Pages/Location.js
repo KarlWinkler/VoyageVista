@@ -15,6 +15,7 @@ const Location = ({ user }) => {
   const { data, isLoading } = useQuery({
     queryKey: ['location'],
     queryFn: async () => {
+      console.log(`fetching location`, id)
       return fetch(`/api/location/${id}/`).then(res =>
         res.json()
       );
@@ -25,11 +26,11 @@ const Location = ({ user }) => {
   console.log("location", data);
 
   const Images = () => {
-    if (data.images.length > 0) {
-      return data.images.map((image, index) => {
-        let img = image.image.replace('voyage-vista-backend', 'localhost')
+    if (data?.images?.length > 0) {
+      return data?.images?.map((image, index) => {
+        let img = image?.image?.replace('voyage-vista-backend', 'localhost')
         return (
-          <img key={index} src={img} alt={image.alt} />
+          <img key={index} src={img} alt={image?.alt} />
         );
       });
     } else {
@@ -49,13 +50,13 @@ const Location = ({ user }) => {
           <Images />
         </div>
         <div className='location-description'>
-          <p>{data.description}</p>
+          <p>{data?.description}</p>
         </div>
         <Card className='location-tags'>
           <Tag name={'first'} />
         </Card>
       </div>
-      <Comment location_id={data.id} user={user} />
+      <Comment location_id={data?.id} user={user} />
     </Box>
   );
 };
