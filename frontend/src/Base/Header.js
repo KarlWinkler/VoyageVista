@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 import logo from '../Assets/logo.png'
 import '../styles/header.scss'
 
-const Header = ({ name }) => {
+const Header = ({ user, name }) => {
   const location = useLocation()
   const { id } = useParams()
 
@@ -40,7 +40,7 @@ const Header = ({ name }) => {
           :
             <h1>{title()}</h1>
         }
-      <ExpandedMenu />
+      <ExpandedMenu user={user} />
       <Hamburger />
     </div>
   )

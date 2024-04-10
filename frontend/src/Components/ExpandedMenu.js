@@ -9,8 +9,8 @@ import '../styles/menu.scss';
 
 const ExpandedMenu = ({ user }) => {
   const navigate = useNavigate();
-  const handleLogout = () => {
-    fetch('/api/auth/logout/', {
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ const ExpandedMenu = ({ user }) => {
       credentials: 'include',
     });
 
-    navigate('/');
+    window.location.href = '/';
   };
 
   return (

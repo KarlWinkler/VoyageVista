@@ -22,7 +22,7 @@ import './styles/variables.scss'
 import Signup from "./Pages/Signup";
 
 function App() {
-  const { data: user, isLoading: userLoading } = useQuery({
+  let { data: user, isLoading: userLoading } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
     return fetch(`/api/auth/user/`).then(res =>
@@ -45,17 +45,17 @@ function App() {
   //     }
   //   })
   // }
-
+  user = user?.id ? user : null;
   return (
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/explore" element={<Header name={'Explore'} />} />
-          <Route path="/discover" element={<Header name={'Discover'} />} />
-          <Route path="/profile" element={<Header name={'Profile'} />} />
-          <Route path="/location/:id" element={<Header />} />
-          <Route path="/location/" element={<Header />} />
-          <Route path="/" element={<Header />} />
+          <Route path="/explore" element={<Header user={user} name={'Explore'} />} />
+          <Route path="/discover" element={<Header user={user} name={'Discover'} />} />
+          <Route path="/profile" element={<Header user={user} name={'Profile'} />} />
+          <Route path="/location/:id" element={<Header user={user} />} />
+          <Route path="/location/" element={<Header user={user} />} />
+          <Route path="/" element={<Header user={user} />} />
         </Routes>
         <div className="content">
           <Routes>

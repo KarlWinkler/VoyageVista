@@ -1,13 +1,13 @@
 .home {
   display: flex;
   align-items: start;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: var(--spacing-4);
 
-  gap: var(--spacing-4);
-
   .button {
+    width: 250px;
     padding: var(--spacing-2) var(--spacing-4);
+    box-sizing: border-box;
   }
 
   div {
@@ -18,8 +18,10 @@
   }
 
   img {
-    width: 150px;
-    height: auto;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
   }
 }
 
