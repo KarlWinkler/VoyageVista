@@ -31,7 +31,7 @@ const Hamburger = ({ user }) => {
             <RightIcon className='close-icon' />
             <Button to={'/'} className='menu-item' text='Home' />
             <Button to={'/profile'} className='menu-item' secondary text='Profile' />
-            <Button className='menu-item' tertiary text='Logout' onClick={() => handleLogout()} />
+            <Button className='menu-item' minor text='Logout' onClick={() => handleLogout()} />
           </>
         ) : (
           <>

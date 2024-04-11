@@ -15,7 +15,7 @@ const Header = ({ user, name }) => {
           <h1>{name}</h1>
         }
       <ExpandedMenu user={user} />
-      <Hamburger />
+      <Hamburger user={user} />
     </div>
   )
 }
