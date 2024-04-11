@@ -87,7 +87,6 @@ function Comment({ user, location_id }) {
         }
         );
       },
-      staleTime: 5 * 1000 * 60,
     });
     const postComment = useMutation({
         mutationFn: async (NewComment) => {

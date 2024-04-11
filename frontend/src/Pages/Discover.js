@@ -4,8 +4,7 @@ import { useQuery } from 'react-query';
 
 import { ReactComponent as AcceptIcon } from '../Assets/accept.svg';
 import { ReactComponent as RejectIcon } from '../Assets/reject.svg';
-import { ReactComponent as LeftIcon } from '../Assets/left.svg';
-import { ReactComponent as RightIcon } from '../Assets/right.svg';
+import ImageCarousel from '../Components/ImageCarousel';
 
 import Ratings from '../Components/Ratings';
 
@@ -26,42 +25,12 @@ const progressLocation = (selected, locationIndex, locations, navigate, setLocat
   }
 }
 
-const progressImage = (forward, imageIndex, setImageIndex, images) => {
-  console.log(images);
-  if (!images) {
-    return;
-  }
-
-  if (forward && imageIndex + 1 === images.length) {
-    setImageIndex(0);
-    return;
-  }
-  if (!forward && imageIndex === 0) {
-    setImageIndex(images.length - 1);
-    return;
-  }
-
-  if (forward) {
-    setImageIndex(imageIndex + 1);
-  } else {
-    setImageIndex(imageIndex - 1);
-  }
-}
-
 const Desctiption = ({ location }) => {
   return (
     <div className='discover-description'>
       <p>{location?.description}</p>
       <Ratings ratings={location?.ratings} />
     </div>
-  );
-}
-
-const Image = ({ image }) => {
-  let img = image?.image.replace('voyage-vista-backend', 'localhost')
-  console.log(img);
-  return (
-    <img className='discover-image' src={img} alt='Discover' />
   );
 }
 
@@ -77,25 +46,19 @@ const Discover = () => {
         res.json()
       );
     },
-    staleTime: 5 * 1000 * 60,
+    staleTime: 10,
   });
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
   let location = locations[locationIndex];
-
   return (
     <div className='discover'>
       <div className='discover-bg' style={{backgroundImage: `url(http://localhost:8000${locations[locationIndex]?.images[imageIndex]?.image})`}} ></div>
       <div className='discover-current-location'>
         <div>
-          <div className='image-carousel'>
-            <LeftIcon className='discover-icon' onClick={() => progressImage(false, imageIndex, setImageIndex, location?.images)}/>
-            <Image image={location?.images[imageIndex]} />
-            <RightIcon className='discover-icon' onClick={() => progressImage(true, imageIndex, setImageIndex, location?.images)} />
-          </div>
-
+          <ImageCarousel images={location?.images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
           <div className='discover-options'>
             <RejectIcon className='discover-icon' onClick={() => progressLocation(false, locationIndex, locations, navigate, setLocationIndex, selectedLocations, setSelectedLocations)}/>
             <h1>{location?.name}</h1>

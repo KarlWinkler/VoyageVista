@@ -7,13 +7,15 @@ import Box from '../Components/Box';
 import Comment from '../Components/Comment'
 import Button from '../Components/Button';
 
-import noImage from '../Assets/no-image.jpg';
 import '../styles/location.scss';
 import Tag from '../Components/Tag';
+import ImageCarousel from '../Components/ImageCarousel';
 
-const Location = ({ user }) => {
+const Location = ({ user, setLocation }) => {
+  const [imageIndex, setImageIndex] = useState(0);
   const { id } = useParams();
-  const { data, isLoading } = useQuery({
+
+  const { data, isLoading: locationLoading } = useQuery({
     queryKey: ['location'],
     queryFn: async () => {
       console.log(`fetching location`, id)
@@ -21,37 +23,20 @@ const Location = ({ user }) => {
         res.json()
       );
     },
-    staleTime: 5 * 1000 * 60,
   });
 
-  console.log("location", data);
-
-  const Images = () => {
-    if (data?.images?.length > 0) {
-      return data?.images?.map((image, index) => {
-        let img = image?.image?.replace('voyage-vista-backend', 'localhost')
-        return (
-          <img key={index} src={img} alt={image?.alt} />
-        );
-      });
-    } else {
-      return (
-        <img src={noImage} alt='placeholder' />
-      );
-    }
-  }
-
-  if (isLoading) {
+  setLocation(data);
+  if (locationLoading) {
     return <h1>Loading...</h1>;
   }
   return (
     <Box className='location'>
       <div className='location-details'>
         <div className='location-images'>
-          <Images />
+          <ImageCarousel images={data?.images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
         </div>
         <div className='location-description'>
-          <Button text='Add to bucket list' />
+          <Button text='Add to bucket list'  />
           <p>{data?.description}</p>
         </div>
         <Card className='location-tags'>
