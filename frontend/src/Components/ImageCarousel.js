@@ -37,6 +37,7 @@ const ImageCarousel = ({ images, imageIndex, setImageIndex }) => {
   }
   return (
     <div className='image-carousel'>
+      <div className='discover-bg' style={{backgroundImage: `url(${images[imageIndex]?.image.replace('voyage-vista-backend', 'localhost')})`}} ></div>
       <LeftIcon className='discover-icon' onClick={() => progressImage(false, imageIndex, setImageIndex, images)}/>
       <Image image={images[imageIndex]} />
       <RightIcon className='discover-icon' onClick={() => progressImage(true, imageIndex, setImageIndex, images)} />

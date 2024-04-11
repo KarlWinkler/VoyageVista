@@ -28,6 +28,7 @@
 }
 
 .image-carousel {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +36,10 @@
 
 .discover-image {
   width: 40%;
-  height: auto;
+  height: 30vh;
+  object-fit: cover;
+
+  border-radius: 20px;
 }
 
 .discover-bg {

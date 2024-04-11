@@ -50,8 +50,11 @@ class LocationViewSet(viewsets.ModelViewSet):
   @action(detail=False, methods=['get'], url_name='location-discover')
   def discover(self, request):
     user = request.user
-    user_tags = UserTag.objects.filter(user__id=user.pk).values_list('tag__id', flat=True)
-    locations = Location.objects.filter(ratings__tag__in=user_tags).distinct('id')
+    locations = Location.objects.all()
+    if user:
+      user_tags = UserTag.objects.filter(user__id=user.pk).values_list('tag__id', flat=True)
+      locations = Location.objects.filter(ratings__tag__in=user_tags).distinct('id')
+
     serializer = LocationSerializer(self.pick_random_locations(locations), many=True)
     return Response(serializer.data)
 

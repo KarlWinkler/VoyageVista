@@ -22,13 +22,8 @@
 
 .location-images {
   grid-area: image;
-  width: 60%;
+  width: 100%;
   justify-self: center;
-  img {
-    margin: 1rem 0;
-    width: 100%;
-    height: auto;
-  }
 }
 
 .location-tags {

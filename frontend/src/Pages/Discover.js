@@ -46,7 +46,7 @@ const Discover = () => {
         res.json()
       );
     },
-    staleTime: 10,
+    staleTime: 5 * 1000 * 60,
   });
 
   if (isLoading) {
@@ -55,7 +55,6 @@ const Discover = () => {
   let location = locations[locationIndex];
   return (
     <div className='discover'>
-      <div className='discover-bg' style={{backgroundImage: `url(http://localhost:8000${locations[locationIndex]?.images[imageIndex]?.image})`}} ></div>
       <div className='discover-current-location'>
         <div>
           <ImageCarousel images={location?.images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
