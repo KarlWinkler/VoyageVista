@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import Card from '../Components/Card';
 import Box from '../Components/Box';
 import Comment from '../Components/Comment'
+import Button from '../Components/Button';
 
 import noImage from '../Assets/no-image.jpg';
 import '../styles/location.scss';
@@ -50,6 +51,7 @@ const Location = ({ user }) => {
           <Images />
         </div>
         <div className='location-description'>
+          <Button text='Add to bucket list' />
           <p>{data?.description}</p>
         </div>
         <Card className='location-tags'>
