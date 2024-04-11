@@ -11,6 +11,7 @@ import getCookie from '../Components/GetCookie';
 import '../styles/location.scss';
 import Tag from '../Components/Tag';
 import ImageCarousel from '../Components/ImageCarousel';
+import Ratings from '../Components/Ratings';
 
 const Location = ({ user, setLocation }) => {
   const queryClient = useQueryClient();
@@ -23,6 +24,15 @@ const Location = ({ user, setLocation }) => {
     queryFn: async () => {
       console.log(`fetching location`, id)
       return fetch(`/api/location/${id}/`).then(res =>
+        res.json()
+      );
+    },
+  });
+
+  const { data: tags, isLoading: tagsLoading } = useQuery({
+    queryKey: ['tags'],
+    queryFn: async () => {
+      return fetch(`/api/location/${id}/tags/`).then(res =>
         res.json()
       );
     },
@@ -150,8 +160,13 @@ const Location = ({ user, setLocation }) => {
           <p>{data?.description}</p>
         </div>
         <Card className='location-tags'>
-          <Tag name={'first'} />
+          {tags?.map((tag, index) => {
+            return (
+              <Tag key={index} name={tag.name} />
+            );
+          })}
         </Card>
+        <Ratings ratings={data?.ratings} />
       </div>
       <Comment location_id={data?.id} user={user} />
     </Box>

@@ -23,6 +23,9 @@ from .serializers import LocationSerializer
 from authentication.models import UserTag
 from authentication.serializers.user_tag_serializer import UserTagSerializer
 
+from tag.models import Tag
+from tag.serializers import TagSerializer
+
 import random
 
 class LocationViewSet(viewsets.ModelViewSet):
@@ -45,6 +48,13 @@ class LocationViewSet(viewsets.ModelViewSet):
     location = get_object_or_404(Location, pk=pk)
     comments = location.comments.all()
     serializer = CommentSerializer(comments, many=True)
+    return Response(serializer.data)
+
+  @action(detail=True, methods=['get'], url_path='tags', url_name='location-tags')
+  def tags(self, request, pk=None):
+    tag_ids = Rating.objects.filter(location__id=pk).values_list('tag__id', flat=True)
+    tags = Tag.objects.filter(pk__in=tag_ids)
+    serializer = TagSerializer(tags, many=True)
     return Response(serializer.data)
 
   @action(detail=False, methods=['get'], url_name='location-discover')
