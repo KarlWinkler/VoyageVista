@@ -41,6 +41,12 @@
   grid-area: description;
 }
 
+.location-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-3);
+}
+
 .location-card {
   display: flex;
   flex-direction: column;

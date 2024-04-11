@@ -74,6 +74,52 @@ const Location = ({ user, setLocation }) => {
     queryClient.invalidateQueries('location');
   }
 
+  const addVisited = useMutation({
+    mutationFn: async () => {
+      return fetch(`/api/auth/users/add_visited/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          location_id: id,
+        }),
+      }).then(res =>
+        res.json()
+      );
+    },
+  });
+
+  const removeVisited = useMutation({
+    mutationFn: async () => {
+      return fetch(`/api/auth/users/remove_visited/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          location_id: id,
+        }),
+      }).then(res =>
+        res.json()
+      );
+    },
+  });
+
+  const handleClickRemoveVisited = (e) => {
+    e.preventDefault();
+    removeVisited.mutate();
+    queryClient.invalidateQueries('location');
+  }
+
+  const handleClickVisited = (e) => {
+    e.preventDefault();
+    addVisited.mutate();
+    queryClient.invalidateQueries('location');
+  }
+
   setLocation(data);
   if (locationLoading) {
     return <h1>Loading...</h1>;
@@ -85,13 +131,22 @@ const Location = ({ user, setLocation }) => {
           <ImageCarousel images={data?.images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
         </div>
         <div className='location-description'>
-          {
-            data?.bucket_list ? (
-              <Button text='- Remove from bucket list' onClick={e => handleClickRemoveBucketList(e)} />
-            ) : (
-              <Button text='+ Add to bucket list' onClick={e => handleClickBucketList(e)} />
-            )
-          }
+          <div className='location-links'>
+            {
+              data?.bucket_list ? (
+                <Button text='- Remove from bucket list' onClick={e => handleClickRemoveBucketList(e)} />
+              ) : (
+                <Button text='+ Add to bucket list' secondary onClick={e => handleClickBucketList(e)} />
+              )
+            }
+            {
+              data?.visited ? (
+                <Button text='- Remove from visited' onClick={e => handleClickRemoveVisited(e)} />
+              ) : (
+                <Button text='+ Add to visited' secondary onClick={e => handleClickVisited(e)} />
+              )
+            }
+          </div>
           <p>{data?.description}</p>
         </div>
         <Card className='location-tags'>
