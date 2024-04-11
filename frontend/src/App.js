@@ -47,7 +47,7 @@ function App() {
           <Route path="/profile" element={<Header user={user} name={'Profile'} setLocation={setLocation} />} />
           <Route path="/location/:id" element={<Header user={user} name={location?.name} location={true} setLocation={setLocation} />} />
           <Route path="/location/" element={<Header user={user} setLocation={setLocation} />} />
-          <Route path="/" element={<Header user={user} />} />
+          <Route path="/" element={<Header user={user} setLocation={setLocation} />} />
         </Routes>
         <div className="content">
           <Routes>
