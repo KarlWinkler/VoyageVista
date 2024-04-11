@@ -5,6 +5,7 @@ import Card from '../Components/Card';
 import AddButton from '../Components/AddButton';
 import LocationCard from '../Components/LocationCard';
 import Tag from '../Components/Tag';
+import AddTag from '../Components/AddTag';
 
 import '../styles/profile.scss';
 
@@ -40,7 +41,6 @@ const Profile = ({ user }) => {
     cacheTime: 10 * 1000 * 60
   });
 
-  console.log(user)
   return (
     <div className='profile'>
       <div className="profile-name">
@@ -48,12 +48,15 @@ const Profile = ({ user }) => {
         {user?.username}
       </div>
       <Card className="profile-tags">
-        {tags?.map((tag, index) => {
-          return (
-            <Tag key={index} name={tag.tag.name} />
-          );
-        })}
-        <AddButton />
+        <div className='profile-tags'>
+
+          {tags?.map((tag, index) => {
+            return (
+              <Tag key={index} name={tag.tag.name} />
+            );
+          })}
+        </div>
+        <AddTag />
       </Card>
       <div className='profile-locations'>
         <h1>Visited</h1>

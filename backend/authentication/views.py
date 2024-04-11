@@ -68,6 +68,14 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=201)
 
     @action(detail=False, methods=['post'])
+    def add_tag(self, request, *args, **kwargs):
+        tag_id = request.data['tag_id']
+        user_tag = UserTag.objects.create(user=request.user, tag_id=tag_id)
+        serializer = UserTagSerializer(user_tag, many=False)
+
+        return Response(serializer.data, status=201)
+
+    @action(detail=False, methods=['post'])
     def remove_bucket_list(self, request, *args, **kwargs):
         location_id = request.data['location_id']
         location = Location.objects.get(id=location_id)

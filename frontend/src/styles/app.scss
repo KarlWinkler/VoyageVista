@@ -27,3 +27,17 @@ textarea {
 .error {
   color: red;
 }
+
+select {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: var(--spacing-4);
+}
+
+.add-tag {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
