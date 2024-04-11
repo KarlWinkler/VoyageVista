@@ -72,7 +72,8 @@ class LocationSerializer(serializers.ModelSerializer):
     request = self.context.get("request")
     if request and hasattr(request, "user"):
         user = request.user
-    if not user:
+        
+    if not user or not user.is_authenticated:
       return False
 
     bucket_list = BucketList.objects.filter(user=user, location=obj)
@@ -83,7 +84,7 @@ class LocationSerializer(serializers.ModelSerializer):
     request = self.context.get("request")
     if request and hasattr(request, "user"):
         user = request.user
-    if not user:
+    if not user or not user.is_authenticated:
       return False
 
     visited = Visited.objects.filter(user=user, location=obj)

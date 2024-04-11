@@ -34,7 +34,6 @@ function App() {
     cacheTime: 10 * 1000 * 60
   });
 
-  console.log(location)
   user = user?.id ? user : null;
   return (
     <div className="app">

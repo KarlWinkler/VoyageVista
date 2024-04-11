@@ -7,11 +7,7 @@ import { useQuery } from 'react-query'
 import logo from '../Assets/logo.png'
 import '../styles/header.scss'
 
-const Header = ({ user, name, location, setLocation }) => {
-  if (!location) {
-    setLocation('')
-  }
-
+const Header = ({ user, name }) => {
   return (
     <div className='Header'>
         <img src={logo} alt='logo' className='logo' />
