@@ -4,14 +4,22 @@
   grid-gap: 20px;
   padding: var(--spacing-3);
 
+  align-items: start;
+
   .profile-image {
-    width: 50%;
+    width: 300px;
     height: auto;
+    object-fit: cover;
+    border-radius: 20px;
   }
 
   .profile-name {
     font-size: 1.5rem;
     font-weight: bold;
+
+    display: flex;
+    align-items: start;
+    gap: var(--spacing-6);
   }
 
   .profile-tags{

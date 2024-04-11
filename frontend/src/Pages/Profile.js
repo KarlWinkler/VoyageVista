@@ -44,7 +44,7 @@ const Profile = ({ user }) => {
   return (
     <div className='profile'>
       <div className="profile-name">
-        <img className='profile-image' src={user?.images[0].image} alt={user?.username} />
+        <img className='profile-image' src={user?.images[0]?.image || 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='} alt={'profile image'} />
         {user?.username}
       </div>
       <Card className="profile-tags">

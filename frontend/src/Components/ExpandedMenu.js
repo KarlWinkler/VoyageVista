@@ -44,8 +44,8 @@ const ExpandedMenu = ({ user }) => {
           <Link to="/login">
             Login
           </Link>
-          <Link to="/register">
-            Register
+          <Link to="/signup">
+            Sign Up
           </Link>
         </div>
       )}

@@ -35,7 +35,7 @@ const Login = () => {
 			<div className="heading">
 				<img src={logo} alt="App Logo"/>
 				<h1>Log In</h1>
-				<Link className="altPage">Sign Up</Link>
+				<Link to='/signup' className="altPage">Sign Up</Link>
 			</div>
 			<div className="error">{errorMessage}</div>
 			<section>
