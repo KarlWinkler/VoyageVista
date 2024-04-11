@@ -49,6 +49,43 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data, status=201)
 
+    @action(detail=False, methods=['post'])
+    def add_bucket_list(self, request, *args, **kwargs):
+        location_id = request.data['location_id']
+        location = Location.objects.get(id=location_id)
+        bucket_list = BucketList.objects.create(user=request.user, location=location)
+        serializer = BucketListSerializer(bucket_list, many=False)
+
+        return Response(serializer.data, status=201)
+
+    @action(detail=False, methods=['post'])
+    def add_visited(self, request, *args, **kwargs):
+        location_id = request.data['location_id']
+        location = Location.objects.get(id=location_id)
+        visited = Visited.objects.create(user=request.user, location=location)
+        serializer = VisitedSerializer(visited, many=False)
+
+        return Response(serializer.data, status=201)
+
+    @action(detail=False, methods=['post'])
+    def remove_bucket_list(self, request, *args, **kwargs):
+        location_id = request.data['location_id']
+        location = Location.objects.get(id=location_id)
+        bucket_list = BucketList.objects.filter(user=request.user, location=location)
+        bucket_list.delete()
+
+        return Response({'message': 'deleted'}, status=200)
+
+    @action(detail=False, methods=['post'])
+    def remove_visited(self, request, *args, **kwargs):
+        location_id = request.data['location_id']
+        location = Location.objects.get(id=location_id)
+        visited = Visited.objects.filter(user=request.user, location=location)
+        visited.delete()
+
+        return Response({'message': 'deleted'}, status=200)
+
+
 class AuthViewSet(viewsets.ViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

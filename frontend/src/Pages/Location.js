@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import Card from '../Components/Card';
 import Box from '../Components/Box';
 import Comment from '../Components/Comment'
 import Button from '../Components/Button';
+import getCookie from '../Components/GetCookie';
 
 import '../styles/location.scss';
 import Tag from '../Components/Tag';
 import ImageCarousel from '../Components/ImageCarousel';
 
 const Location = ({ user, setLocation }) => {
+  const queryClient = useQueryClient();
   const [imageIndex, setImageIndex] = useState(0);
+  
   const { id } = useParams();
 
   const { data, isLoading: locationLoading } = useQuery({
@@ -25,6 +28,52 @@ const Location = ({ user, setLocation }) => {
     },
   });
 
+  const addBucketList = useMutation({
+    mutationFn: async () => {
+      return fetch(`/api/auth/users/add_bucket_list/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          location_id: id,
+        }),
+      }).then(res =>
+        res.json()
+      );
+    },
+  });
+
+  const removeBucketList = useMutation({
+    mutationFn: async () => {
+      return fetch(`/api/auth/users/remove_bucket_list/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          location_id: id,
+        }),
+      }).then(res =>
+        res.json()
+      );
+    },
+  });
+
+  const handleClickRemoveBucketList = (e) => {
+    e.preventDefault();
+    removeBucketList.mutate();
+    queryClient.invalidateQueries('location');
+  }
+
+  const handleClickBucketList = (e) => {
+    e.preventDefault();
+    addBucketList.mutate();
+    queryClient.invalidateQueries('location');
+  }
+
   setLocation(data);
   if (locationLoading) {
     return <h1>Loading...</h1>;
@@ -36,7 +85,13 @@ const Location = ({ user, setLocation }) => {
           <ImageCarousel images={data?.images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
         </div>
         <div className='location-description'>
-          <Button text='Add to bucket list'  />
+          {
+            data?.bucket_list ? (
+              <Button text='- Remove from bucket list' onClick={e => handleClickRemoveBucketList(e)} />
+            ) : (
+              <Button text='+ Add to bucket list' onClick={e => handleClickBucketList(e)} />
+            )
+          }
           <p>{data?.description}</p>
         </div>
         <Card className='location-tags'>

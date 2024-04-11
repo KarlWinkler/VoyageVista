@@ -7,8 +7,8 @@ const Button = ({ text, to, onClick, className, secondary, tertiary, minor }) =>
   return (
     <Link
       className={`button ${secondary ? 'secondary' : ''} ${tertiary ? 'tertiary' : ''} ${minor ? 'minor' : ''} ${className || ''}`}
-      to={to}
       onClick={onClick}
+      to={to}
     >
       <p>{text}</p>
     </Link>

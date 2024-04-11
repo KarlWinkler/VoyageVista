@@ -6,6 +6,11 @@ from .models import (
   Rating,
   Comment,
 )
+from authentication.models import (
+  User,
+  BucketList,
+  Visited,
+)
 from tag.serializers import TagSerializer
 from authentication.serializers.user_serializer import UserSerializer
 
@@ -39,6 +44,8 @@ class LocationSerializer(serializers.ModelSerializer):
   ratings = RatingSerializer(many=True, read_only=True)
   comments = CommentSerializer(many=True, read_only=True)
   tags = SerializerMethodField()
+  bucket_list = SerializerMethodField()
+  visited = SerializerMethodField()
 
   class Meta:
     model = Location
@@ -50,6 +57,8 @@ class LocationSerializer(serializers.ModelSerializer):
       'ratings',
       'comments',
       'tags',
+      'bucket_list',
+      'visited',
     )
     read_only_fields = ('id', 'images', 'ratings', 'comments')
 
@@ -57,3 +66,25 @@ class LocationSerializer(serializers.ModelSerializer):
     tags = obj.ratings.distinct()
 
     return RatingSerializer(tags, many=True).data
+
+  def get_bucket_list(self, obj):
+    user = None
+    request = self.context.get("request")
+    if request and hasattr(request, "user"):
+        user = request.user
+    if not user:
+      return False
+
+    bucket_list = BucketList.objects.filter(user=user, location=obj)
+    return bucket_list.exists()
+
+  def get_visited(self, obj):
+    user = None
+    request = self.context.get("request")
+    if request and hasattr(request, "user"):
+        user = request.user
+    if not user:
+      return False
+
+    visited = Visited.objects.filter(user=user, location=obj)
+    return visited.exists()
