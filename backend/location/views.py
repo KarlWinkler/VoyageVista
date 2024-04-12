@@ -77,6 +77,24 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     return random_locations
 
+  @action(detail=True, methods=['post'], url_path='add_rating', url_name='location-add-rating')
+  def add_rating(self, request, pk=None):
+    location = get_object_or_404(Location, pk=pk)
+    user = request.user
+    ratings = request.data
+    print(ratings)
+
+    for rating in ratings:
+      tag = get_object_or_404(Tag, pk=rating['tag'])
+      Rating.objects.create(
+        location=location,
+        user=user,
+        tag=tag,
+        rating=rating['rating']
+      )
+
+    return Response({ 'message': 'Rating added successfully' })
+
 
 class LocationImageViewSet(viewsets.ModelViewSet):
   queryset = LocationImage.objects.all()

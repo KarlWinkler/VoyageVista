@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 
+import getCookie from './GetCookie';
 import Button from './Button';
 import RatingItem from './RatingItem';
 
-const AddRatings = ({ ratings }) => {
+const AddRatings = ({ location_id, ratings }) => {
+  const queryClient = useQueryClient();
   const [ratingList, setRatingList] = useState(ratings?.map(rating => ({
     tag: rating.tag,
     rating: rating.rating
@@ -17,12 +19,37 @@ const AddRatings = ({ ratings }) => {
     return response.json();
   });
 
+  const addRating = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`/api/location/${location_id}/add_rating/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify(ratingList.map(rating => ({
+          tag: rating.tag.id,
+          rating: rating.rating
+        }))),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      queryClient.invalidateQueries('location');
+      return response.json();
+    },
+  });
+
+  const submitRatings = () => {
+    addRating.mutate();
+  }
+
   console.log(ratings)
   return (
     <div>
       <div>
         {ratings?.map((rating, index) => (
-            <RatingItem tag={rating.tag} ratingList={ratingList} setRatingList={setRatingList} />
+            <RatingItem key={index} tag={rating.tag} ratingList={ratingList} setRatingList={setRatingList} />
         ))}
       </div>
       <div className='add-tag'>
@@ -35,6 +62,7 @@ const AddRatings = ({ ratings }) => {
           })}
         </select>
         <Button  text={'Add Rating'} />
+        <Button secondary text={'Submit Ratings'} onClick={submitRatings} />
       </div>
     </div>
   );

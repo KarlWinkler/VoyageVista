@@ -13,13 +13,11 @@ const RatingItem = ({ tag, ratingList, setRatingList }) => {
   };
   const handleClick = (e) => {
     const rating = parseInt(e.target.closest('.star-pick').id);
-    const index = ratingList.findIndex(rating => rating.tag === tag);
+    const index = ratingList.findIndex(rating => rating.tag.id === tag.id);
     const newRatingList = [...ratingList];
     newRatingList[index] = { tag: tag, rating: rating };
     setRating(rating);
     setRatingList([...newRatingList]);
-
-    console.log(ratingList);
   }
 
   return (
