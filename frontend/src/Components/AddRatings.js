@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import getCookie from './GetCookie';
@@ -6,12 +6,21 @@ import Button from './Button';
 import RatingItem from './RatingItem';
 
 const AddRatings = ({ location_id, ratings }) => {
+  console.log('ratings', ratings)
   const queryClient = useQueryClient();
   const [selectedTag, setSelectedTag] = useState('');
   const [ratingList, setRatingList] = useState(ratings?.map(rating => ({
     tag: rating.tag,
     rating: 0
   })));
+
+  useEffect(() => {
+    setRatingList(ratings?.map(rating => ({
+      tag: rating.tag,
+      rating: 0
+    })));
+  }, [ratings]);
+
   const { data: allTags, isLoading } = useQuery('tagsList', async () => {
     const response = await fetch('/api/tag/?location_id=' + location_id);
     if (!response.ok) {
@@ -58,7 +67,6 @@ const AddRatings = ({ location_id, ratings }) => {
     setSelectedTag(tag.name);
   }
 
-  console.log('r', ratings)
   return (
     <div>
       <div id='ratings'>

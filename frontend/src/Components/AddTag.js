@@ -37,8 +37,6 @@ const AddTag = () => {
     },
   });
 
-
-  console.log(allTags)
   return (
     <div className={'add-tag'}>
       <select
