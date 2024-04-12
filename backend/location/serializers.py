@@ -73,7 +73,7 @@ class LocationSerializer(serializers.ModelSerializer):
     return json.dumps(list(ratings))
 
   def get_tags(self, obj):
-    tags = obj.ratings.distinct()
+    tags = obj.ratings.distinct('tag')
 
     return RatingSerializer(tags, many=True).data
 

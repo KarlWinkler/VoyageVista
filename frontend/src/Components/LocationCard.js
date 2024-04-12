@@ -16,11 +16,13 @@ const LocationCard = ({ index, location }) => {
       <Card key={index} className='location-card' onClick={handleLocationClick} >
         <img src={img} alt={location?.images[0]?.alt} />
         {location?.name}
-        {location?.tags?.map((tag, index) => {
-          return (
-            <Tag key={index} name={tag.tag.name} />
-          );
-        })}
+        <div className='location-card__ratings'>
+          {location?.tags?.map((tag, index) => {
+            return (
+              <Tag key={index} name={tag.tag.name} />
+            );
+          })}
+        </div>
       </Card>
   );
 };

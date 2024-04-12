@@ -169,7 +169,7 @@ const Location = ({ user, setLocation }) => {
             );
           })}
         </Card>
-        <Ratings ratings={ratings} />
+        <Ratings ratings={data.ratings} />
         <AddRatings location_id={data?.id} user={user} ratings={ratings} />
       </div>
       <Comment location_id={data?.id} user={user} />
