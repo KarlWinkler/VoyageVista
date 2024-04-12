@@ -20,6 +20,9 @@ const Ratings = ({ ratings }) => {
     return stars;
   }
 
+  if (!ratings) {
+    return null;
+  }
   const parsedRatings = JSON.parse(ratings)
   console.log(parsedRatings)
   return (

@@ -10,21 +10,6 @@ import Ratings from '../Components/Ratings';
 
 import '../styles/discover.scss';
 
-const progressLocation = (selected, locationIndex, locations, navigate, setLocationIndex, selectedLocations, setSelectedLocations) => {
-  let selectedLocationsTemp = [...selectedLocations];
-
-  if (selected) {
-    selectedLocationsTemp.push(locations[locationIndex].id);
-    setSelectedLocations(selectedLocationsTemp);
-  }
-
-  if (locationIndex + 1 === locations.length) {
-    navigate(`/explore?discover=${[...selectedLocationsTemp].join('%2C')}`);
-  } else {
-    setLocationIndex(locationIndex + 1);
-  }
-}
-
 const Desctiption = ({ location }) => {
   return (
     <div className='discover-description'>
@@ -49,6 +34,22 @@ const Discover = () => {
     staleTime: 5 * 1000 * 60,
   });
 
+  const progressLocation = (selected) => {
+    let selectedLocationsTemp = [...selectedLocations];
+
+    if (selected) {
+      selectedLocationsTemp.push(locations[locationIndex].id);
+      setSelectedLocations(selectedLocationsTemp);
+    }
+
+    if (locationIndex + 1 === locations.length) {
+      navigate(`/explore?discover=${[...selectedLocationsTemp].join('%2C')}`);
+    } else {
+      setImageIndex(0);
+      setLocationIndex(locationIndex + 1);
+    }
+  }
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -59,9 +60,9 @@ const Discover = () => {
         <div>
           <ImageCarousel images={location?.images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
           <div className='discover-options'>
-            <RejectIcon className='discover-icon' onClick={() => progressLocation(false, locationIndex, locations, navigate, setLocationIndex, selectedLocations, setSelectedLocations)}/>
+            <RejectIcon className='discover-icon' onClick={() => progressLocation(false)}/>
             <h1>{location?.name}</h1>
-            <AcceptIcon className='discover-icon' onClick={() => progressLocation(true, locationIndex, locations, navigate, setLocationIndex, selectedLocations, setSelectedLocations)} />
+            <AcceptIcon className='discover-icon' onClick={() => progressLocation(true)} />
           </div>
           <Desctiption location={location} />
         </div>

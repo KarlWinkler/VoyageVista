@@ -135,8 +135,7 @@ const Location = ({ user, setLocation }) => {
   if (locationLoading) {
     return <h1>Loading...</h1>;
   }
-
-  const ratings = JSON.parse(data.ratings);
+  const ratings = JSON.parse(data?.ratings);
   return (
     <Box className='location'>
       <div className='location-details'>
