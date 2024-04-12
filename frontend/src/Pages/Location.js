@@ -144,22 +144,24 @@ const Location = ({ user, setLocation }) => {
           <ImageCarousel images={data?.images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
         </div>
         <div className='location-description'>
-          <div className='location-links'>
-            {
-              data?.bucket_list ? (
-                <Button text='- Remove from bucket list' onClick={e => handleClickRemoveBucketList(e)} />
-              ) : (
-                <Button text='+ Add to bucket list' secondary onClick={e => handleClickBucketList(e)} />
-              )
-            }
-            {
-              data?.visited ? (
-                <Button text='- Remove from visited' onClick={e => handleClickRemoveVisited(e)} />
-              ) : (
-                <Button text='+ Add to visited' secondary onClick={e => handleClickVisited(e)} />
-              )
-            }
-          </div>
+          {user && (
+            <div className='location-links'>
+              {
+                data?.bucket_list ? (
+                  <Button text='- Remove from bucket list' onClick={e => handleClickRemoveBucketList(e)} />
+                ) : (
+                  <Button text='+ Add to bucket list' secondary onClick={e => handleClickBucketList(e)} />
+                )
+              }
+              {
+                data?.visited ? (
+                  <Button text='- Remove from visited' onClick={e => handleClickRemoveVisited(e)} />
+                ) : (
+                  <Button text='+ Add to visited' secondary onClick={e => handleClickVisited(e)} />
+                )
+              }
+            </div>
+          )}
           <p>{data?.description}</p>
         </div>
         <Card className='location-tags'>
@@ -170,7 +172,7 @@ const Location = ({ user, setLocation }) => {
           })}
         </Card>
         <Ratings ratings={data.ratings} />
-        <AddRatings location_id={data?.id} user={user} ratings={ratings} />
+        {user && <AddRatings location_id={data?.id} user={user} ratings={ratings} /> }
       </div>
       <Comment location_id={data?.id} user={user} />
     </Box>
