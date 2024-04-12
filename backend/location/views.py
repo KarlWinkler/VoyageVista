@@ -61,7 +61,7 @@ class LocationViewSet(viewsets.ModelViewSet):
   def discover(self, request):
     user = request.user
     locations = Location.objects.all()
-    if user:
+    if user.is_authenticated:
       user_tags = UserTag.objects.filter(user__id=user.pk).values_list('tag__id', flat=True)
       locations = Location.objects.filter(ratings__tag__in=user_tags).distinct('id')
 
