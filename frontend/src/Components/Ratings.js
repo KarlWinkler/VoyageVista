@@ -20,10 +20,11 @@ const Ratings = ({ ratings }) => {
     return stars;
   }
 
-  console.log(ratings)
+  const parsedRatings = JSON.parse(ratings)
+  console.log(parsedRatings)
   return (
     <div className='ratings'>
-      {ratings?.map((rating, index) => {
+      {parsedRatings?.map((rating, index) => {
         return (
           <div key={index} className='rating' title={rating?.average}>
             <h3>{rating?.tag.name}</h3>
