@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
@@ -17,6 +17,8 @@ import AddRatings from '../Components/AddRatings';
 const Location = ({ user, setLocation }) => {
   const queryClient = useQueryClient();
   const [imageIndex, setImageIndex] = useState(0);
+  const [bucketList, setBucketList] = useState(false);
+  const [visited, setVisited] = useState(false);
   
   const { id } = useParams();
 
@@ -29,6 +31,11 @@ const Location = ({ user, setLocation }) => {
       );
     },
   });
+
+  useEffect(() => {
+    setBucketList(data?.bucket_list);
+    setVisited(data?.visited);
+  }, [data]);
 
   const { data: tags, isLoading: tagsLoading } = useQuery({
     queryKey: ['tags'],
@@ -77,12 +84,14 @@ const Location = ({ user, setLocation }) => {
     e.preventDefault();
     removeBucketList.mutate();
     queryClient.invalidateQueries('location');
+    setBucketList(false);
   }
 
   const handleClickBucketList = (e) => {
     e.preventDefault();
     addBucketList.mutate();
     queryClient.invalidateQueries('location');
+    setBucketList(true);
   }
 
   const addVisited = useMutation({
@@ -123,12 +132,14 @@ const Location = ({ user, setLocation }) => {
     e.preventDefault();
     removeVisited.mutate();
     queryClient.invalidateQueries('location');
+    setVisited(false);
   }
 
   const handleClickVisited = (e) => {
     e.preventDefault();
     addVisited.mutate();
     queryClient.invalidateQueries('location');
+    setVisited(true);
   }
 
   setLocation(data);
@@ -146,14 +157,14 @@ const Location = ({ user, setLocation }) => {
           {user && (
             <div className='location-links'>
               {
-                data?.bucket_list ? (
+                bucketList ? (
                   <Button text='- Remove from bucket list' onClick={e => handleClickRemoveBucketList(e)} />
                 ) : (
                   <Button text='+ Add to bucket list' secondary onClick={e => handleClickBucketList(e)} />
                 )
               }
               {
-                data?.visited ? (
+                visited ? (
                   <Button text='- Remove from visited' onClick={e => handleClickRemoveVisited(e)} />
                 ) : (
                   <Button text='+ Add to visited' secondary onClick={e => handleClickVisited(e)} />
