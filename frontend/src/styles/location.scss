@@ -29,6 +29,9 @@
 .location-tags {
   grid-area: tags;
 
+  display: flex;
+  flex-wrap: wrap;
+
   margin: var(--spacing-2);
 }
 
