@@ -17,7 +17,7 @@ const LocationCard = ({ index, location }) => {
         <img src={img} alt={location?.images[0]?.alt} />
         {location?.name}
         <div className='location-card__ratings'>
-          {location?.tags?.map((tag, index) => {
+          {location?.tags?.slice(0, 3)?.map((tag, index) => {
             return (
               <Tag key={index} name={tag.tag.name} />
             );

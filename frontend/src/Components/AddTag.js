@@ -32,6 +32,7 @@ const AddTag = () => {
       }
       queryClient.invalidateQueries('tags');
       queryClient.invalidateQueries('tagsList');
+      queryClient.invalidateQueries('userTags');
       return response.json();
     },
   });

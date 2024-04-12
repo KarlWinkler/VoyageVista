@@ -11,14 +11,12 @@ import '../styles/profile.scss';
 
 const Profile = ({ user }) => {
   const { data: tags, isLoading: tagsLoading } = useQuery({
-    queryKey: ['tags'],
+    queryKey: ['userTags'],
     queryFn: async () => {
       return fetch(`/api/auth/users/tags/`).then(res =>
         res.json()
       );
     },
-    staleTime: 10 * 1000 * 60,
-    cacheTime: 10 * 1000 * 60
   });
   const { data: bucketList, isLoading: bucketListLoading } = useQuery({
     queryKey: ['bucketList'],
@@ -27,8 +25,6 @@ const Profile = ({ user }) => {
         res.json()
       );
     },
-    staleTime: 10 * 1000 * 60,
-    cacheTime: 10 * 1000 * 60
   });
   const { data: visited, isLoading: visitedLoading } = useQuery({
     queryKey: ['visited'],
@@ -37,8 +33,6 @@ const Profile = ({ user }) => {
         res.json()
       );
     },
-    staleTime: 10 * 1000 * 60,
-    cacheTime: 10 * 1000 * 60
   });
 
   return (
@@ -63,7 +57,7 @@ const Profile = ({ user }) => {
         <AddButton to='/explore'/>
         <div className='profile-locations-list'>
           {visited?.map(({ location }, index) => {
-            console.log(location.images[0].image);
+            console.log(location.images[0]?.image);
             return (
               <LocationCard key={`visited_${index}`} location={location} />
             );
