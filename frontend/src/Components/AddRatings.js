@@ -7,12 +7,13 @@ import RatingItem from './RatingItem';
 
 const AddRatings = ({ location_id, ratings }) => {
   const queryClient = useQueryClient();
+  const [selectedTag, setSelectedTag] = useState('');
   const [ratingList, setRatingList] = useState(ratings?.map(rating => ({
     tag: rating.tag,
-    rating: rating.rating
+    rating: 0
   })));
   const { data: allTags, isLoading } = useQuery('tagsList', async () => {
-    const response = await fetch('/api/tag');
+    const response = await fetch('/api/tag/?location_id=' + location_id);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -35,7 +36,9 @@ const AddRatings = ({ location_id, ratings }) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      queryClient.invalidateQueries('tagsList');
       queryClient.invalidateQueries('location');
+      
       return response.json();
     },
   });
@@ -44,24 +47,35 @@ const AddRatings = ({ location_id, ratings }) => {
     addRating.mutate();
   }
 
-  console.log(ratings)
+  const handleAddRating = () => {
+    const newRatingList = [...ratingList];
+    newRatingList.push({ tag: { id: parseInt(document.querySelector('.add-tag select').value), name: selectedTag}, rating: 0 });
+    setRatingList([...newRatingList]);
+  }
+
+  const handleSelectTag = (e) => {
+    const tag = allTags.find(tag => tag.id === parseInt(e.target.value))
+    setSelectedTag(tag.name);
+  }
+
+  console.log('r', ratings)
   return (
     <div>
-      <div>
-        {ratings?.map((rating, index) => (
+      <div id='ratings'>
+        {ratingList?.map((rating, index) => (
             <RatingItem key={index} tag={rating.tag} ratingList={ratingList} setRatingList={setRatingList} />
         ))}
       </div>
       <div className='add-tag'>
-        <select>
+        <select name={selectedTag} onInput={handleSelectTag} >
           <option value=''>Select a tag</option>
           {allTags?.map((tag, index) => {
             return (
-              <option key={index} value={tag.name}>{tag.name}</option>
+              <option key={index} value={tag.id} name={tag.name}>{tag.name}</option>
             );
           })}
         </select>
-        <Button  text={'Add Rating'} />
+        <Button text={'Add Rating'} onClick={handleAddRating} />
         <Button secondary text={'Submit Ratings'} onClick={submitRatings} />
       </div>
     </div>
