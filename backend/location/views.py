@@ -82,9 +82,11 @@ class LocationViewSet(viewsets.ModelViewSet):
     location = get_object_or_404(Location, pk=pk)
     user = request.user
     ratings = request.data
-    print(ratings)
 
     for rating in ratings:
+      if rating['rating'] < 1 or rating['rating'] > 5:
+        continue
+
       tag = get_object_or_404(Tag, pk=rating['tag'])
       Rating.objects.create(
         location=location,
