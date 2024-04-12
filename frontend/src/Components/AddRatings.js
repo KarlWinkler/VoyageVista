@@ -14,13 +14,6 @@ const AddRatings = ({ location_id, ratings }) => {
     rating: 0
   })));
 
-  useEffect(() => {
-    setRatingList(ratings?.map(rating => ({
-      tag: rating.tag,
-      rating: 0
-    })));
-  }, [ratings]);
-
   const { data: allTags, isLoading } = useQuery('tagsList', async () => {
     const response = await fetch('/api/tag/?location_id=' + location_id);
     if (!response.ok) {

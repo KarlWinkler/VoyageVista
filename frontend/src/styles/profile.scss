@@ -46,6 +46,15 @@
   }
 }
 
+.profile-user {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  text-decoration: none;
+  color: var(--color-text);
+}
+
 @media screen and (max-width: 768px) {
   .profile {
     grid-template-columns: 1fr;

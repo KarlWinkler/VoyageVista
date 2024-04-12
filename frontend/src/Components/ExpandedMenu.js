@@ -29,8 +29,9 @@ const ExpandedMenu = ({ user }) => {
         <Link to="/">
           <HomeIcon />
         </Link>
-        <Link to="/profile">
+        <Link className={'profile-user'} to="/profile">
           <ProfileIcon />
+          <p>{user.username}</p>
         </Link>
         <Link onClick={() => handleLogout()}>
           Logout
