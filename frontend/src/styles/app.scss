@@ -41,3 +41,22 @@ select {
   align-items: center;
   justify-content: center;
 }
+
+.star {
+  width: 20px;
+  height: 20px;
+}
+
+.star-pick {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.star-pick.empty {
+  color: #837b5c;
+}
+
+.star-pick.picked {
+  color: #f1c40f;
+}

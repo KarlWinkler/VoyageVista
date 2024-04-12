@@ -12,6 +12,7 @@ import '../styles/location.scss';
 import Tag from '../Components/Tag';
 import ImageCarousel from '../Components/ImageCarousel';
 import Ratings from '../Components/Ratings';
+import AddRatings from '../Components/AddRatings';
 
 const Location = ({ user, setLocation }) => {
   const queryClient = useQueryClient();
@@ -134,6 +135,8 @@ const Location = ({ user, setLocation }) => {
   if (locationLoading) {
     return <h1>Loading...</h1>;
   }
+
+  const ratings = JSON.parse(data.ratings);
   return (
     <Box className='location'>
       <div className='location-details'>
@@ -166,7 +169,8 @@ const Location = ({ user, setLocation }) => {
             );
           })}
         </Card>
-        <Ratings ratings={data?.ratings} />
+        <Ratings ratings={ratings} />
+        <AddRatings location_id={data?.id} user={user} ratings={ratings} />
       </div>
       <Comment location_id={data?.id} user={user} />
     </Box>
